@@ -13,7 +13,7 @@ import { Card, Modal, EditList } from "shared/components";
 import { Typography, Input, Button } from "shared/ui/components";
 
 import { ITheme } from "shared/ui/theme/theme";
-import { ResGetDHCP, SetLanSettingsDTO } from "shared/api/setting";
+import { ResGetDHCP, SetLanSettingsDTO } from "shared/api.old/setting";
 
 import { ipString } from "shared/utils/validations";
 import api from "shared/api.old";

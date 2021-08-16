@@ -99,7 +99,7 @@ export const settingsConfig = [
       {
         i18nkey: "interface",
         title: "Интерфейс",
-        href: "/interface",
+        href: "/profile",
         isActive: "interface",
         icon: NewDesignEdit,
       },

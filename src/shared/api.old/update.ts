@@ -1,5 +1,5 @@
 import { fetchData } from "shared/fetch";
-import { Response } from "shared/types/response";
+import { Response } from "shared/api/config";
 
 const fetchUpdate = fetchData("update");
 

@@ -1,6 +1,6 @@
 import { fetchData } from "shared/fetch";
 import { IEvent } from "shared/components/Event/Event";
-import { Response } from "shared/types/response";
+import { Response } from "shared/api/config";
 import { EventListDTO, IDeviceSearch } from "./task";
 
 const fetchIncident = fetchData("incident");

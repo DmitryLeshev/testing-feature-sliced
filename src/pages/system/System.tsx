@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { renderRoutes } from "react-router-config";
 import { useTranslation } from "react-i18next";
 
 import { createStyles, makeStyles } from "@material-ui/core";
@@ -30,7 +29,7 @@ export default memo(function System({ route }: Props) {
           <Agent />
         </div>
       </ScrollableContentiner>
-      {renderRoutes(route.routes)}
+      {/* {renderRoutes(route.routes)} */}
     </Page>
   );
 });

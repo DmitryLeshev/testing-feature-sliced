@@ -21,7 +21,7 @@ import {
   stringMustContainCpecoalCharacter,
   stringMustContainNumber,
 } from "shared/utils/validations";
-import { SetWanSettingsDTO } from "shared/api/setting";
+import { SetWanSettingsDTO } from "shared/api.old/setting";
 import { withAppContext } from "shared/hocs";
 import { IAppContext } from "shared/contexts/app";
 

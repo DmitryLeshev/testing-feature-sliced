@@ -77,16 +77,18 @@ export const mustBeOneNumber = (value: string) => {
     : false;
 };
 
-// export const stringMustContainNumber = (count: number) => (value: string) => {
-//   const n = value.match(/\d/g) ?? [];
-//   return value && [...new Set(n)].length < count
-//     ? `Строка должна содержать ${count} ${declOfNum(count, [
-//         'уникальное',
-//         'уникальных',
-//         'уникальных',
-//       ])} ${declOfNum(count, ['число', 'числа', 'чисел'])}`
-//     : false;
-// };
+export const stringMustContainNumber = (count: number) => (value: string) => {
+  const n = value.match(/\d/g) ?? [];
+  const test: any = new Set(n);
+
+  return value && [...test].length < count
+    ? `Строка должна содержать ${count} ${declOfNum(count, [
+        "уникальное",
+        "уникальных",
+        "уникальных",
+      ])} ${declOfNum(count, ["число", "числа", "чисел"])}`
+    : false;
+};
 
 export const mustBeOneCpecoalCharacter = (value: string) => {
   return value && !/[!@#$%^&*]/.test(value)
@@ -94,16 +96,22 @@ export const mustBeOneCpecoalCharacter = (value: string) => {
     : false;
 };
 
-// export const stringMustContainCpecoalCharacter = (count: number) => (value: string) => {
-//   const n = value.match(/[!@#$%^&*]/g) ?? [];
-//   return value && [...new Set(n)].length < count
-//     ? `Строка должна содержать ${count} ${declOfNum(count, [
-//         'уникальный',
-//         'уникальных',
-//         'уникальных',
-//       ])}  ${declOfNum(count, ['спец символ', 'спец символа', 'спец символов'])}`
-//     : false;
-// };
+export const stringMustContainCpecoalCharacter =
+  (count: number) => (value: string) => {
+    const n = value.match(/[!@#$%^&*]/g) ?? [];
+    const test: any = new Set(n);
+    return value && [...test].length < count
+      ? `Строка должна содержать ${count} ${declOfNum(count, [
+          "уникальный",
+          "уникальных",
+          "уникальных",
+        ])}  ${declOfNum(count, [
+          "спец символ",
+          "спец символа",
+          "спец символов",
+        ])}`
+      : false;
+  };
 
 // export const mustBeOneLowercase = (value) => {
 //   return value && !/[a-z]/.test(value)

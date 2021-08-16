@@ -1,6 +1,6 @@
 // import api from 'shared/api';
 // import { LoginDTO } from 'shared/api/auth';
-// import { Response } from 'shared/types/response';
+// import { Response } from 'shared/api/config';
 
 // enum CubicStatus {
 //   CUBIC_AUTH = 'cubic-auth',

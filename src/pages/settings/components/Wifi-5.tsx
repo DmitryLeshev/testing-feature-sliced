@@ -11,7 +11,7 @@ import { Card, Modal } from "shared/components";
 import { Typography, Button, Input, Select } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
-import { SettingWifiDTO } from "shared/api/setting";
+import { SettingWifiDTO } from "shared/api.old/setting";
 import api from "shared/api.old";
 import useValidations from "shared/hooks/useValidations";
 import {

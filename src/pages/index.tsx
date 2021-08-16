@@ -64,7 +64,7 @@ export const Routing = () => {
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/incidents" component={IncidentsPage} />
         <PrivateRoute exact path="/settings" component={SettingsPage} />
-        <PrivateRoute exact path="/systems" component={SystemPage} />
+        <PrivateRoute exact path="/system" component={SystemPage} />
         <PrivateRoute exact path="/tasks" component={TasksPage} />
         <PrivateRoute exact path="/activation" component={ActivationPage} />
         <PrivateRoute exact path="/auth" component={AuthPage} />

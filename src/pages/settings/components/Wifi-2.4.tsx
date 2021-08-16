@@ -12,19 +12,19 @@ import { Typography, Button, Input, Select } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 import api from "shared/api.old";
-import { SettingWifiDTO } from "shared/api/setting";
+import { SettingWifiDTO } from "shared/api.old/setting";
 import useValidations from "shared/hooks/useValidations";
+
+import { validations } from "shared/utils";
+import { withAppContext } from "shared/hocs";
+import { IAppContext } from "shared/contexts/app";
+import { ISetting } from "./Wifi-5";
 
 interface Props extends IAppContext {
   settings: {
     "2.4": ISetting;
   };
 }
-
-import { validations } from "shared/utils";
-import { withAppContext } from "shared/hocs";
-import { IAppContext } from "shared/contexts/app";
-import { ISetting } from "./Wifi-5";
 const { minValue, stringMustContainNumber, stringMustContainCpecoalCharacter } =
   validations;
 
@@ -61,7 +61,7 @@ function Wifi24({ toggleLoader, settings }: Props) {
   });
 
   const canal24 = useSelect({
-    items: [...Array(13).keys()].map((canal) => {
+    items: Array.from(Array(13).keys()).map((canal) => {
       canal = ++canal;
       return { label: String(canal), value: canal };
     }),

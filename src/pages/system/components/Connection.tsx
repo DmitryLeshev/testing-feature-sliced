@@ -6,7 +6,7 @@ import { Typography, Button, Input } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 import { useTranslation } from "react-i18next";
-import { AnketaDTO } from "shared/api/server";
+import { AnketaDTO } from "shared/api.old/server";
 import api from "shared/api.old";
 import { useEffect } from "react";
 

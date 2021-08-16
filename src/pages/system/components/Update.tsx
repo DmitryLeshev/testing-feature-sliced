@@ -12,7 +12,7 @@ import { useResponseSnackbar, useSelect } from "shared/hooks";
 import { withAppContext } from "shared/hocs";
 import { IAppContext } from "shared/contexts/app";
 import api from "shared/api.old";
-import { IDataSettingIndex } from "shared/api/update";
+import { IDataSettingIndex } from "shared/api.old/update";
 
 interface Props extends IAppContext {}
 
