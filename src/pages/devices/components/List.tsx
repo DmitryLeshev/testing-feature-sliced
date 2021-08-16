@@ -16,14 +16,14 @@ import { ScrollableContentiner, Typography } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 import { whenWasOnline } from "shared/utils";
 import { ItemDevice } from "../Devices";
+import { useGetParameter } from "shared/hooks";
 
 interface Props {
   list: ItemDevice[];
 }
 
 export default memo(function DeviceList({ list }: Props) {
-  const { id } = useParams<{ id: string }>();
-
+  const id = useGetParameter("id");
   const classes = useStyles();
 
   return (
@@ -40,7 +40,7 @@ export default memo(function DeviceList({ list }: Props) {
                 className={clsx(classes.item, { [classes.active]: isActive })}
                 button
                 component={Link}
-                to={`/devices?id=${device.id}`}
+                to={`/devices?id=${device.id}&tab=info`}
                 key={device.id}
               >
                 <ListItemIcon>

@@ -8,7 +8,7 @@ import { ITheme } from "shared/ui/theme/theme";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
-// import api from "shared/api";
+// import api from "shared/api.old";
 
 import {
   CardAgent,
@@ -21,12 +21,10 @@ import {
 } from "./Cards";
 
 interface Props {
-  route?: any;
   className?: string;
-  fetchDevices: () => void;
 }
 
-function TabInfo({ route, className, fetchDevices }: Props) {
+function TabInfo({ className }: Props) {
   const classes = useStyles();
 
   const { id } = useParams<{ id: string }>();
@@ -46,7 +44,7 @@ function TabInfo({ route, className, fetchDevices }: Props) {
       <ScrollableContentiner>
         <div className={clsx(classes.container, className)}>
           <div className={classes.col}>
-            <CardResume data={data.resume} fetchDevices={fetchDevices} />
+            <CardResume data={data.resume} />
             {data?.agentInfo?.main && <CardMain data={data?.agentInfo?.main} />}
             {data?.agentInfo?.users && (
               <CardUsers data={data?.agentInfo?.users} />

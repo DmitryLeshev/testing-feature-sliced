@@ -12,7 +12,7 @@ import { ITheme } from "shared/ui/theme/theme";
 
 import { CardHeader } from "shared/components/Task/components";
 
-// import api from "shared/api";
+// import api from "shared/api.old";
 
 interface ITask {
   id: number;

@@ -30,6 +30,8 @@ const View = ({}: Props) => {
 
   if (!traffic.length || !routers.length || !info) return <Loader />;
 
+  console.log({ info });
+
   return (
     <section className={classes.home}>
       <div className={classes.row}>

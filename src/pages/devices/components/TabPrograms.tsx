@@ -4,7 +4,7 @@ import { ScrollableContentiner } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 import { useEffect } from "react";
-// import api from "shared/api";
+// import api from "shared/api.old";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

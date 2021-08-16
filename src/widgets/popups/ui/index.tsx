@@ -72,7 +72,6 @@ const NotificationItem = ({ notification }: any) => {
     keepOldQuery: true,
   });
 
-  console.log({ link });
   return (
     <li>
       <Link to={link}> List Item {notification.id}</Link>

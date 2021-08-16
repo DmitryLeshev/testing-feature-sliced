@@ -104,13 +104,12 @@ export const CardPorts = ({ data }: PropsCardPorts) => {
 
 interface PropsCardResume {
   data: any;
-  fetchDevices: () => void;
 }
-export const CardResume = ({ data, fetchDevices }: PropsCardResume) => {
+export const CardResume = ({ data }: PropsCardResume) => {
   const classes = useStyles();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
-
+  const fetchDevices = () => console.log("qwe");
   const [edit, setEdit] = useState<boolean>(false);
   const [deviceType, setDeviceType] = useState<number>(0);
   const [name, setName] = useState<string>("");

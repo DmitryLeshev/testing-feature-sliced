@@ -27,6 +27,7 @@ export const TopEventsCard = ({ events, isIncident }: TopEventsCardProps) => {
             const isLastEvent = events.length - 1 === idx;
             return (
               <TopEventRow
+                key={idx}
                 isIncident={isIncident}
                 isLastEvent={isLastEvent}
                 {...event}

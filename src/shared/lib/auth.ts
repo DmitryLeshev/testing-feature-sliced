@@ -1,6 +1,6 @@
 // import api from 'shared/api';
 // import { LoginDTO } from 'shared/api/auth';
-// import { IResponse } from 'shared/types/response';
+// import { Response } from 'shared/types/response';
 
 // enum CubicStatus {
 //   CUBIC_AUTH = 'cubic-auth',
@@ -41,7 +41,7 @@
 
 //   async check() {
 //     try {
-//       const res: IResponse<any> = await this.api.status();
+//       const res: Response<any> = await this.api.status();
 //       if (res.msg === CubicStatus.CUBIC_AUTH) {
 //         this.move('home');
 //       } else if (res.msg === CubicStatus.CUBIC_IS_NOT_AUTH) {

@@ -1,0 +1,68 @@
+import React, { memo } from "react";
+
+import { useModal } from "shared/hooks";
+import { Card, Modal } from "shared/components";
+import { Typography, Button } from "shared/ui/components";
+import { createStyles, makeStyles } from "@material-ui/core";
+import { ITheme } from "shared/ui/theme/theme";
+import { useTranslation } from "react-i18next";
+import { withAppContext } from "shared/hocs";
+import { IAppContext } from "shared/contexts/app";
+
+interface Props extends IAppContext {}
+
+function Reset({ reset }: Props) {
+  const { t } = useTranslation();
+  const usemodal = useModal();
+  const classes = useStyles();
+
+  const header = (
+    <Typography variant="h5">{t("system:system-reset")}</Typography>
+  );
+  const footer = (
+    <Button className={classes.btn} onClick={usemodal.openModal}>
+      {t("system:reset")}
+    </Button>
+  );
+  const modal = (
+    <>
+      <Typography variant="h4">{t("system:are-you-sure")}</Typography>
+      <div className={classes.actions}>
+        <Button
+          color="primary"
+          onClick={async () => {
+            await reset();
+            usemodal.closeModal();
+          }}
+          fullWidth
+        >
+          {t("system:yes")}
+        </Button>
+        <Button color="primary" onClick={usemodal.closeModal} fullWidth>
+          {t("system:no")}
+        </Button>
+      </div>
+    </>
+  );
+  return (
+    <>
+      <Card header={header} footer={footer} />
+      <Modal className={classes.modal} {...usemodal} children={modal} />
+    </>
+  );
+}
+
+const useStyles = makeStyles((theme: ITheme) =>
+  createStyles({
+    card: { gridArea: "reset" },
+    btn: { marginLeft: "auto" },
+    actions: {
+      display: "flex",
+      marginTop: theme.spacing(2),
+      "& > button:last-child": { marginLeft: theme.spacing(2) },
+    },
+    modal: { minWidth: 600 },
+  })
+);
+
+export default withAppContext(Reset);

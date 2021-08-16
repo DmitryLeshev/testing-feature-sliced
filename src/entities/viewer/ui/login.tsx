@@ -59,10 +59,8 @@ export function AuthByLogin({}: Props) {
     };
     const res = await viewerModel.effects.viewerLogInFx(args);
     await modelAuthCheck.effects.getStatusFx();
-    console.log({ res });
     const state: any = location.state;
     const link = (state && state.from) || "/";
-    console.log({ link });
     history.replace(link);
   }
 

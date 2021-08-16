@@ -11,7 +11,7 @@ import HomePage from "./home";
 import IncidentsPage from "./incidents";
 import ProfilePage from "./profile";
 import SettingsPage from "./settings";
-import SystemsPage from "./systems";
+import SystemPage from "./system";
 import TasksPage from "./tasks";
 import AuthPage from "./auth";
 import { Loader } from "shared/components";
@@ -64,7 +64,7 @@ export const Routing = () => {
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/incidents" component={IncidentsPage} />
         <PrivateRoute exact path="/settings" component={SettingsPage} />
-        <PrivateRoute exact path="/systems" component={SystemsPage} />
+        <PrivateRoute exact path="/systems" component={SystemPage} />
         <PrivateRoute exact path="/tasks" component={TasksPage} />
         <PrivateRoute exact path="/activation" component={ActivationPage} />
         <PrivateRoute exact path="/auth" component={AuthPage} />

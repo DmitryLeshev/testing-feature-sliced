@@ -5,10 +5,10 @@ import { createStyles, makeStyles } from "@material-ui/core";
 
 import { DeviceIcon, Tabs, Loader } from "shared/components";
 import { Typography } from "shared/ui/components";
-import { useTabs } from "shared/hooks";
+import { useGetParameter, useTabs } from "shared/hooks";
 import { ITheme } from "shared/ui/theme/theme";
 
-import tabsConfig from "./tabs.config";
+import tabsConfig, { TABS_COMPONENTS } from "./tabs.config";
 import { useEffect } from "react";
 import { ItemDevice } from "../Devices";
 import { useRouter } from "shared/hooks";
@@ -25,6 +25,9 @@ export default memo(function Details({ selectedItem }: Props) {
   const [details, setDetails] = useState<ItemDevice | null>(null);
   const classes = useStyles();
 
+  const id: any = useGetParameter("id");
+  const tab: any = useGetParameter("tab");
+
   console.log({ selectedItem });
 
   useEffect(() => {
@@ -32,6 +35,8 @@ export default memo(function Details({ selectedItem }: Props) {
   }, [selectedItem]);
 
   if (!selectedItem) return <Loader />;
+
+  const Component: any = TABS_COMPONENTS[tab];
 
   return (
     <>
@@ -57,12 +62,10 @@ export default memo(function Details({ selectedItem }: Props) {
           className={classes.tabs}
           {...usetabs}
           match={match}
-          tabsConfig={tabsConfig(match.params.id, details?.agent ?? true)}
+          tabsConfig={tabsConfig(id, details?.agent ?? true)}
         />
       </div>
-      <Suspense fallback={<Loader />}>
-        {/* {renderRoutes(route.routes, { className: classes.tab, fetchDevices })} */}
-      </Suspense>
+      {Component && <Component />}
     </>
   );
 });
