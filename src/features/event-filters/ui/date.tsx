@@ -11,7 +11,7 @@ import { reflect } from "@effector/reflect";
 type Props = { updateData: (v: any) => void };
 
 function View({ updateData }: Props): ReactElement {
-  const query = modelEvent.selectors.useQuery();
+  const query = modelEvent.querySelectors.useQuery();
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -40,7 +40,7 @@ function View({ updateData }: Props): ReactElement {
 export const EventDate = reflect({
   view: View,
   bind: {
-    updateData: modelEvent.events.updateQueryConfig,
+    updateData: modelEvent.queryEvents.updateQueryConfig,
   },
 });
 

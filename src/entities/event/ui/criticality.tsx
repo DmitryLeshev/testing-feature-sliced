@@ -14,9 +14,13 @@ export function EventCriticality({ crt }: Props) {
   const classes = useStyles({ crt });
   return (
     <div className={classes.container}>
-      <div className={classes.bg} style={{ width: `${Math.floor(crt)}0%` }} />
+      <div
+        className={classes.bg}
+        style={{ width: `${Math.floor(crt ?? 0)}0%` }}
+      />
       <Typography className={classes.wrapper} variant="caption">
-        <NewDesignFlash /> <span className={classes.crt}>{crt}</span> / 10
+        <NewDesignFlash />{" "}
+        <span className={classes.crt}>{String(crt) ?? ""}</span> / 10
       </Typography>
     </div>
   );

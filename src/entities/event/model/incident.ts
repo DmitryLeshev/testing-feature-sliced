@@ -1,113 +1,94 @@
-// import { createStore, combine, createEffect, createEvent } from "effector";
-// import { useStore } from "effector-react";
-// import { normalize, schema } from "normalizr";
-// import produce from "immer";
+import { createStore, combine, createEffect, createEvent } from "effector";
+import { useStore } from "effector-react";
 
-// import { cubicApi } from "shared/api";
-// import type { Event } from "shared/api";
+import { cubicApi } from "shared/api";
+import type { Event } from "shared/api";
+import { _trDate } from "shared/utils";
 
-// export type QueryConfig = cubicApi.event.ListArgs & {};
+type QueryConfig = cubicApi.event.ListArgs & {};
 
-// const updateIncident = createEvent();
-// const setQueryConfig = createEvent<QueryConfig>();
-// const resetQueryConfig = createEvent<QueryConfig>();
+const updateIncident = createEvent();
+const getNextIncidents = createEvent<QueryConfig>();
+const resetIncidents = createEvent();
 
-// const getIncidentsListFx = createEffect((args: cubicApi.event.ListArgs) => {
-//   return cubicApi.event.incidentList(args);
-// });
+const getIncidentsListFx = createEffect((args: cubicApi.event.ListArgs) => {
+  return cubicApi.event.incidentList(args);
+});
 
-// const getIncidentFx = createEffect((args: cubicApi.event.GetArgs) => {
-//   return cubicApi.event.incidentGet(args);
-// });
+const getNextIncidentsFx = createEffect((args: cubicApi.event.ListArgs) => {
+  return cubicApi.event.incidentList(args);
+});
 
-// // Можно вынести нормализацию на уровне API
-// export const incidentsSchema = new schema.Entity("incidents");
-// export const normalizeIncident = (data: Event) =>
-//   normalize(data, incidentsSchema);
-// export const normalizeIncidents = (data: Event[]) =>
-//   normalize(data, [incidentsSchema]);
+const getIncidentFx = createEffect((args: cubicApi.event.GetArgs) => {
+  return cubicApi.event.incidentGet(args);
+});
 
-// export const incidentsInitialState: Record<number, Event> = {};
-// export const $incidents = createStore(incidentsInitialState)
-//   .on(
-//     getIncidentsListFx.doneData,
-//     (_, payload) => normalizeIncidents(payload.data ?? []).entities.incidents
-//   )
-//   .on(getIncidentFx.doneData, (state, payload) => ({
-//     ...state,
-//     ...normalizeIncident(payload.data).entities.incidents,
-//   }))
-//   .on(updateIncident, (state, taskId) =>
-//     produce(state, (draft) => {
-//       console.log({ state, taskId, draft });
-//     })
-//   );
+const incidentsInitialState: Event[] = [];
 
-// export const $queryConfig = createStore<QueryConfig>({})
-//   .on(setQueryConfig, (_, payload) => payload)
-//   .on(resetQueryConfig, () => {});
+const $incidents = createStore(incidentsInitialState)
+  .on(getIncidentsListFx.doneData, (_, payload) => {
+    return payload.data;
+  })
+  .on(resetIncidents, () => incidentsInitialState)
+  .on(getNextIncidentsFx.doneData, (state, payload) => {
+    console.log({ state, payload });
+    if (!state.length) return state;
+    return [...state, ...(payload.data ?? [])];
+  });
 
-// export const $incidentsListLoading = getIncidentsListFx.pending;
-// export const $taskDetailsLoading = getIncidentFx.pending;
+const $incidentsListLoading = getIncidentsListFx.pending;
 
-// export const $incidentsList = combine($incidents, (incidents) =>
-//   Object.values(incidents)
-// );
-// export const $incidentsIsEmpty = combine(
-//   $incidentsList,
-//   (incidentsList) => incidentsList.length < 1
-// );
+const $incidentsList = combine($incidents, (incidents) => {
+  return Object.values(incidents);
+});
 
-// export const $incidentsFiltered = combine(
-//   $incidentsList,
-//   $queryConfig,
-//   (incidentsList, config) => {
-//     return incidentsList.filter((task) => config.progressId === task.id);
-//   }
-// );
+const $incidentsIsEmpty = combine(
+  $incidentsList,
+  (incidentsList) => incidentsList.length < 1
+);
 
-// const useIncident = (
-//   taskId: number
-// ): import("shared/api").Event | undefined => {
-//   return useStore($incidents)[taskId];
-// };
+const $lastIncidentId = combine($incidents, (incidents) => {
+  return incidents[incidents.length - 1]?.id ?? 0;
+});
 
-// const useIncidentsList = (): import("shared/api").Event[] => {
-//   return useStore($incidentsList);
-// };
+const useIncident = (
+  incidentId: number
+): import("shared/api").Event | undefined => {
+  return useStore($incidents)[incidentId];
+};
 
-// const useIncidentListLoading = () => {
-//   return useStore($incidentsListLoading);
-// };
+const useIncidentsList = (): import("shared/api").Event[] => {
+  return useStore($incidentsList);
+};
 
-// const useIncidentListIsEmpty = () => {
-//   return useStore($incidentsIsEmpty);
-// };
+const useIncidentListLoading = () => {
+  return useStore($incidentsListLoading);
+};
 
-// const useQuery = () => {
-//   return useStore($queryConfig);
-// };
+const useIncidentListIsEmpty = () => {
+  return useStore($incidentsIsEmpty);
+};
 
-// export const events = {
-//   updateIncident,
-//   setQueryConfig,
-// };
+const useLastIncidentId = () => {
+  return useStore($lastIncidentId);
+};
 
-// export const effects = {
-//   getIncidentFx,
-//   getIncidentsListFx,
-// };
+export const incidentEvents = {
+  resetIncidents,
+  updateIncident,
+  getNextIncidents,
+};
 
-// export const selectors = {
-//   useIncident,
-//   useIncidentsList,
-//   useIncidentListLoading,
-//   useIncidentListIsEmpty,
-//   useQuery,
-// };
+export const incidentEffects = {
+  getIncidentFx,
+  getIncidentsListFx,
+  getNextIncidentsFx,
+};
 
-// $incidents.watch((state) => {
-//   return state;
-// });
-
-export {};
+export const incidentSelectors = {
+  useIncident,
+  useIncidentsList,
+  useIncidentListLoading,
+  useIncidentListIsEmpty,
+  useLastIncidentId,
+};

@@ -22,3 +22,4 @@ export type Traffic = {
 
 export * from "./event.model";
 export * from "./home.model";
+export * from "./device.model";

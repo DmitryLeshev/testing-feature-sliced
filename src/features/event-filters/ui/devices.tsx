@@ -24,7 +24,7 @@ type Props = {};
 function View({}: Props) {
   const classes = useStyles();
   const devices = modelEvent.devicesSelectors.useDevices();
-  const setSearch = modelEvent.events.updateQueryConfig;
+  const setSearch = modelEvent.queryEvents.updateQueryConfig;
   const [value, setValue] = useState<number>(0);
   const [items, setItems] = useState<IItemMenu[]>([]);
 

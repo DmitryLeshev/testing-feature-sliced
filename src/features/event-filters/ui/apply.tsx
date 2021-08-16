@@ -10,8 +10,7 @@ import { ITheme } from "shared/ui/theme/theme";
 type Props = {};
 
 export function EventFilterToApply({}: Props): ReactElement {
-  const query = modelEvent.selectors.useQuery();
-  const lastId = modelEvent.selectors.useLastTaskId();
+  const query = modelEvent.querySelectors.useQuery();
   const { t } = useTranslation();
   const classes = useStyles();
   return (
@@ -20,8 +19,11 @@ export function EventFilterToApply({}: Props): ReactElement {
       variant="contained"
       color="primary"
       fullWidth
-      // onClick={() => modelEvent.effects.getTasksListFx(query)}
-      onClick={() => modelEvent.effects.getNextTasksFx({ ...query, lastId })}
+      onClick={() => {
+        if (true) {
+          modelEvent.taskEffects.getTasksListFx(query);
+        } else modelEvent.incidentEffects.getIncidentsListFx(query);
+      }}
     >
       {t(`common:filter.apply`)}
     </Button>

@@ -30,7 +30,7 @@ type Props = {
 
 function View({ updateData }: Props): ReactElement {
   const { t } = useTranslation();
-  const crt = modelEvent.selectors.useQuery().crt ?? [0, 100];
+  const crt = modelEvent.querySelectors.useQuery().crt ?? [0, 100];
   const value = crt.map((c) => c * 10);
 
   const classes = useStyles();
@@ -58,7 +58,7 @@ function View({ updateData }: Props): ReactElement {
 export const EventFilterCriticality = reflect({
   view: View,
   bind: {
-    updateData: modelEvent.events.updateQueryConfig,
+    updateData: modelEvent.queryEvents.updateQueryConfig,
   },
 });
 

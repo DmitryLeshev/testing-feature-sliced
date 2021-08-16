@@ -13,16 +13,16 @@ import { ITheme } from "shared/ui/theme/theme";
 type Props = RouteChildrenProps<{}> & {};
 
 const View = ({}: Props) => {
-  const { effects, selectors, events } = modelEvent;
-  const tasks = selectors.useTasksList();
-  const isLoading = selectors.useTaskListLoading();
-  const isEmpty = selectors.useTaskListIsEmpty();
-  const queryConfig = selectors.useQuery();
-  const lastId = selectors.useLastTaskId();
+  const { taskEffects, taskSelectors, taskEvents, querySelectors } = modelEvent;
+  const tasks = taskSelectors.useTasksList();
+  const isLoading = taskSelectors.useTaskListLoading();
+  const isEmpty = taskSelectors.useTaskListIsEmpty();
+  const queryConfig = querySelectors.useQuery();
+  const lastId = taskSelectors.useLastTaskId();
 
   useEffect(() => {
-    events.resetTasks();
-    effects.getTasksListFx(queryConfig);
+    taskEvents.resetTasks();
+    taskEffects.getTasksListFx(queryConfig);
   }, [queryConfig]);
   const classes = useStyles();
 
@@ -40,7 +40,9 @@ const View = ({}: Props) => {
           <Placeholder placeholder="Задачи отсутсвуют" />
         ) : (
           <EventList
-          // callback={() => effects.getNextTasksFx({ ...queryConfig, lastId })}
+            callback={() =>
+              taskEffects.getNextTasksFx({ ...queryConfig, lastId })
+            }
           >
             {tasks.map((task) => {
               return <EventRow key={task.id} data={task} variant="task" />;

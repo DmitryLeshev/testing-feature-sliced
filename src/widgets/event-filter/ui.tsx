@@ -11,6 +11,7 @@ import {
   EventDevices,
   EventDate,
 } from "features/event-filters";
+import { useRouter } from "shared/hooks";
 
 interface Props {}
 
@@ -18,6 +19,10 @@ export function EventFilter({}: Props): ReactElement {
   const { t } = useTranslation();
   const classes = useStyles();
   const header = <Typography>{t(`common:filter.title`)}</Typography>;
+
+  const { location } = useRouter();
+
+  const isIncident = location.pathname.includes("incidents");
 
   return (
     <Card
@@ -27,7 +32,7 @@ export function EventFilter({}: Props): ReactElement {
       body={
         <>
           <EventDevices />
-          <EventFilterCriticality />
+          {!isIncident && <EventFilterCriticality />}
           <EventDate />
           <EventFilterToApply />
           <EventFilterReset />
@@ -40,18 +45,6 @@ export function EventFilter({}: Props): ReactElement {
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     card: { flexGrow: 1 },
-    body: {
-      //   position: "absolute",
-      //   top: theme.spacing(6),
-      //   bottom: theme.spacing(6),
-      //   display: "flex",
-      //   flexDirection: "column",
-      gap: theme.spacing(2),
-      //   padding: theme.spacing(6),
-      //   width: 360,
-      //   backgroundColor: theme.palette.background.paper,
-      //   right: theme.spacing(6),
-      //   borderRadius: theme.spacing(2),
-    },
+    body: { gap: theme.spacing(2) },
   })
 );

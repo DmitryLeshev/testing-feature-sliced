@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import { ListItem, Button, Collapse } from "@material-ui/core";
+import { ListItem, Button, Collapse, useTheme } from "@material-ui/core";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -123,6 +123,7 @@ const NavigationListItem = (props: any) => {
   const classes = useStyles();
   const [open, setOpen] = useState(openProp);
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const handleToggle = () => {
     setOpen((open: any) => !open);
@@ -183,6 +184,7 @@ const NavigationListItem = (props: any) => {
               className={clsx(classes.icon, {
                 [classes.icon_newDesign]: isNewDesign,
               })}
+              fill={isActive ? theme.palette.primary.main : "#fff"}
             />
           )}
           <Typography

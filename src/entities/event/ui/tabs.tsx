@@ -36,7 +36,7 @@ function View({ className }: Props): ReactElement {
     const selectedTab = configEvent.tabs.find((el) => el.tab === status);
     if (!selectedTab) return setTabValue(0);
     setTabValue(selectedTab.id);
-    modelEvent.events.updateQueryConfig({
+    modelEvent.queryEvents.updateQueryConfig({
       progressId: status === "in-work" ? 1 : 4,
     });
   }, [status]);

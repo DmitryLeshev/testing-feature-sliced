@@ -10,7 +10,7 @@ import { ITheme } from "shared/ui/theme/theme";
 type Props = {};
 
 export function EventFilterReset({}: Props): ReactElement {
-  const query = modelEvent.selectors.useQuery();
+  const query = modelEvent.querySelectors.useQuery();
   const { t } = useTranslation();
   const classes = useStyles();
   return (
@@ -18,7 +18,7 @@ export function EventFilterReset({}: Props): ReactElement {
       className={classes.btn}
       color="primary"
       fullWidth
-      onClick={() => modelEvent.events.resetQueryConfig()}
+      onClick={() => modelEvent.queryEvents.resetQueryConfig()}
     >
       {t(`common:filter.reset`)}
     </Button>

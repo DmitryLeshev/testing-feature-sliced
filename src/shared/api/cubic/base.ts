@@ -1,13 +1,11 @@
-import { getToken } from "shared/fetch";
 import { request } from "../request";
 export * from "../config";
 
 export function fetchApi(iface: string) {
   return async (packet: any) => {
-    const token = await getToken();
     const [method, args]: any = Object.entries(packet)[0];
     const path = `${iface}/${method}`;
-    const res = await request({ path, args, token });
+    const res = await request({ path, args });
     return res;
   };
 }

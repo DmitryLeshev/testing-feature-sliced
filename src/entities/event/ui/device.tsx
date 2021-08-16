@@ -54,11 +54,14 @@ export type DeviceLinkProps = {
 
 export function EventDeviceLink({ icon, name, url }: DeviceLinkProps) {
   const classes = useStyles();
+
   return (
-    <Link className={classes.link} to={url}>
-      <span className={classes.link_icon}>{icon}</span>
-      <span className={classes.link_name}>{name}</span>
-    </Link>
+    <object>
+      <Link className={classes.link} to={url}>
+        <span className={classes.link_icon}>{icon}</span>
+        <span className={classes.link_name}>{name}</span>
+      </Link>
+    </object>
   );
 }
 

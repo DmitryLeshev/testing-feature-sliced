@@ -1,15 +1,14 @@
-import React from 'react';
-import { useParams } from 'react-router';
+import React from "react";
+import { useParams } from "react-router";
 
-import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 // import { List, ListItem, Section, Text, Title } from "../../components";
 // eslint-disable-next-line
-import { useSnackbarTemplates, useTranslationTemplates } from '../../lib';
+import { useTranslationTemplates } from "../../lib";
 
-export default ({ api, data, fetchTask, children }) => {
+export default ({ api, data, fetchTask, children }: any) => {
   const classes = useStyles();
-  const { taskId: id } = useParams();
-  const { enqueueSnackbarTemplates } = useSnackbarTemplates();
+  const { taskId: id } = useParams<any>();
   // const { getListItem, getText, getTitle } = useTranslationTemplates({
   //   number: data.type,
   // });
@@ -32,14 +31,13 @@ export default ({ api, data, fetchTask, children }) => {
   //   );
   // };
 
-  async function addWhiteList({ id, ip, domain }) {
+  async function addWhiteList({ id, ip, domain }: any) {
     const res = await api.incident.buttons.setDecisionAction({
       id,
       ip,
       domain,
     });
     fetchTask();
-    enqueueSnackbarTemplates(res);
   }
 
   return (
@@ -56,7 +54,7 @@ export default ({ api, data, fetchTask, children }) => {
           </Grid>
           <Grid item xs={4}></Grid>
         </li>
-        {data?.body?.hosts?.map((el, idx) => (
+        {data?.body?.hosts?.map((el: any, idx: number) => (
           <li key={idx} className={classes.item}>
             <Grid className={classes.grid} item xs={4}>
               <Typography variant="h5">{el.domain}</Typography>
@@ -69,7 +67,10 @@ export default ({ api, data, fetchTask, children }) => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  onClick={() => addWhiteList({ id, ip: el.ip, domain: el.domain })}>
+                  onClick={() =>
+                    addWhiteList({ id, ip: el.ip, domain: el.domain })
+                  }
+                >
                   Добавить в белый список
                 </Button>
               ) : (
@@ -85,20 +86,20 @@ export default ({ api, data, fetchTask, children }) => {
 
 const useStyles = makeStyles((theme) => ({
   item: {
-    display: 'flex',
+    display: "flex",
     padding: theme.spacing(3, 0, 3, 2),
     borderBottom: `1px solid ${theme.palette.divider}`,
 
-    '&:first-child': {
-      background: '#eee',
+    "&:first-child": {
+      background: "#eee",
     },
 
-    '&:last-child': {
-      borderBottom: 'none',
+    "&:last-child": {
+      borderBottom: "none",
     },
   },
   grid: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
 }));

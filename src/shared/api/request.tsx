@@ -3,6 +3,14 @@ import { store } from "shared/store";
 import { DEFAULT_OPTIONS, URL, Response } from "./config";
 import { modelNotifier } from "shared/lib/notifier";
 
+const controller = new AbortController();
+const signal = controller.signal;
+
+function abortFetching() {
+  console.log("Now aborting");
+  controller.abort();
+}
+
 async function request({
   path,
   args,
@@ -11,11 +19,13 @@ async function request({
   path: string;
   args?: any;
   token?: string;
+  debug?: boolean;
 }) {
   try {
     const options: RequestInit = {
       ...DEFAULT_OPTIONS,
-      body: JSON.stringify({ path, args, token }),
+      signal: signal,
+      body: JSON.stringify({ path, args, token: "DEBUG" }),
     };
     const response = await fetch(URL, options);
     const data: Response<any> = await response.json();
@@ -37,4 +47,4 @@ async function request({
   }
 }
 
-export { request };
+export { request, abortFetching };

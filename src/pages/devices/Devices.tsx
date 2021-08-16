@@ -1,0 +1,146 @@
+import React, { useState, Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import { reflect } from "@effector/reflect";
+
+import { createStyles, makeStyles } from "@material-ui/core";
+
+import { modelDevices } from "entities/device";
+
+import { useGetParameter, useRouter } from "shared/hooks";
+
+import { Page, Loader } from "shared/components";
+import { Input } from "shared/ui/components";
+import { ITheme } from "shared/ui/theme/theme";
+
+import List from "./components/List";
+import { useEffect } from "react";
+import { Details } from "./components";
+
+interface Props {
+  isLoading: boolean;
+}
+
+export enum TypeDevice {
+  "unknown" = 0,
+  "station" = 1,
+  "server" = 2,
+  "printer" = 3,
+  "router" = 4,
+  "ip_telephony" = 5,
+  "camera" = 6,
+  "tv" = 7,
+  "tv_box" = 8,
+  "wifi" = 9,
+  "phone" = 10,
+  "security" = 11,
+  "cash" = 12,
+  "bluetooth" = 13,
+}
+
+export enum DhcpStatusDevice {
+  REACHABLE = "REACHABLE",
+  PERMANENT = "PERMANENT",
+  STALE = "STALE",
+  DELAY = "DELAY",
+}
+
+export interface ItemDevice {
+  id: number;
+  name: string;
+  ip: string;
+  type: TypeDevice;
+  mac: string;
+  online: number | boolean;
+  agent: false;
+  os: string;
+  isUserOs: false;
+  dhcpStatus: DhcpStatusDevice;
+  sip: number;
+}
+
+function View({ isLoading }: Props) {
+  const { t } = useTranslation();
+  const { history, params } = useRouter<{ id: string }>();
+  const [state, setState] = useState<{ search: string }>({ search: "" });
+  const devices = modelDevices.selectors.useDevices();
+  const device = modelDevices.selectors.useDevice();
+
+  const id = useGetParameter("id");
+
+  function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
+    const { name, value } = event.currentTarget;
+    setState((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }
+
+  useEffect(() => {
+    id && modelDevices.query.events.setQueryConfig({ id: Number(id) });
+  }, [id]);
+
+  console.log({ device });
+
+  const classes = useStyles();
+  return (
+    <Page title={t("devices:page")}>
+      <div className={classes.temlate}>
+        <div className={classes.leftbar}>
+          <Input
+            className={classes.input}
+            placeholder={t("devices:list.search")}
+            name="search"
+            value={state.search}
+            onChange={changeHandler}
+            fullWidth
+          />
+          <List list={devices ?? []} />
+        </div>
+        <div className={classes.content}>
+          {device.details && <Details selectedItem={device.details} />}
+        </div>
+      </div>
+    </Page>
+  );
+}
+
+const useStyles = makeStyles((theme: ITheme) =>
+  createStyles({
+    temlate: {
+      flexGrow: 1,
+      display: "grid",
+      gridTemplateAreas: `
+        "leftbar content"
+      `,
+      gridTemplateColumns: "min-content 1fr",
+    },
+    leftbar: {
+      display: "flex",
+      flexDirection: "column",
+      width: theme.drawer.openWidth + 50,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[3],
+    },
+    content: {
+      display: "flex",
+      flexDirection: "column",
+      flexGrow: 1,
+    },
+    input: { padding: theme.spacing(1.5, 1.5) },
+    scroll: { flexGrow: 1 },
+    list: { height: 1, flexGrow: 1, overflowY: "auto" },
+    item: { overflow: "hidden" },
+    active: {
+      backgroundColor: theme.palette.action.selected,
+      borderRight: `solid 4px ${theme.palette.primary.main}`,
+    },
+  })
+);
+
+const DevicesPage = reflect({
+  view: View,
+  bind: {
+    isLoading: modelDevices.effects.getDevicesFx.pending,
+  },
+});
+
+export default DevicesPage;

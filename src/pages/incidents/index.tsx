@@ -2,41 +2,51 @@ import { RouteChildrenProps } from "react-router-dom";
 import { reflect } from "@effector/reflect";
 
 import { useEffect } from "react";
-import { modelEvent, EventRow, TasksTabs, EventList } from "entities/event";
+import { modelEvent, EventRow, EventList } from "entities/event";
 
 import { EventFilter } from "widgets/event-filter";
 
-import { Loader } from "shared/components";
+import { Loader, Placeholder } from "shared/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 
 type Props = RouteChildrenProps<{}> & {};
 
-const View = ({ match }: Props) => {
-  const { effects, selectors } = modelEvent;
-  const tasks = selectors.useTasksList();
-  const isLoading = selectors.useTaskListLoading();
-  const isEmpty = selectors.useTaskListIsEmpty();
+const View = ({}: Props) => {
+  const { incidentEffects, incidentSelectors, incidentEvents, querySelectors } =
+    modelEvent;
+  const incidents = incidentSelectors.useIncidentsList();
+  const isLoading = incidentSelectors.useIncidentListLoading();
+  const isEmpty = incidentSelectors.useIncidentListIsEmpty();
+  const queryConfig = querySelectors.useQuery();
+  const lastId = incidentSelectors.useLastIncidentId();
 
   useEffect(() => {
-    effects.getTasksListFx({ progressId: 1 });
-  }, []);
+    incidentEvents.resetIncidents();
+    incidentEffects.getIncidentsListFx(queryConfig);
+  }, [queryConfig]);
   const classes = useStyles();
 
-  if (isLoading && isEmpty) return <Loader />;
+  const loader = isLoading && isEmpty && <Loader />;
+
   return (
-    <section className={classes.tasks}>
+    <section className={classes.incidents}>
       <div className={classes.content}>
-        {isEmpty ? (
-          "Пусто"
+        {loader ? (
+          loader
+        ) : isEmpty ? (
+          <Placeholder placeholder="Задачи отсутсвуют" />
         ) : (
-          <EventList>
-            {tasks.map((task) => {
+          <EventList
+            callback={() =>
+              incidentEffects.getNextIncidentsFx({ ...queryConfig, lastId })
+            }
+          >
+            {incidents.map((incident) => {
               return (
                 <EventRow
-                  className={classes.incident}
-                  key={task.id}
-                  data={task}
+                  key={incident.id}
+                  data={incident}
                   variant="incident"
                 />
               );
@@ -57,7 +67,7 @@ const IncidentsPage = reflect({
 
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
-    tasks: {
+    incidents: {
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",
@@ -69,8 +79,12 @@ const useStyles = makeStyles((theme: ITheme) =>
       display: "flex",
       flexDirection: "column",
       maxHeight: `calc(100vh - ${theme.spacing(12)}px)`,
+      borderRadius: theme.spacing(2),
+      overflow: "hidden",
+      boxShadow: theme.shadows[3],
+      backgroundColor: theme.palette.background.paper,
     },
-    tabs: {},
+    tabs: { margin: theme.spacing(0) },
     filter: {
       position: "absolute",
       top: theme.spacing(6),
@@ -79,11 +93,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       flexDirection: "column",
       width: 360,
       right: theme.spacing(6),
-    },
-    incident: {
-      "&:first-child": {
-        borderRadius: `16px 16px 0px 0px`,
-      },
     },
   })
 );
