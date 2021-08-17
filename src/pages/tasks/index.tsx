@@ -1,13 +1,14 @@
+import { useEffect } from "react";
 import { RouteChildrenProps } from "react-router-dom";
 import { reflect } from "@effector/reflect";
 
-import { useEffect } from "react";
+import { createStyles, makeStyles } from "@material-ui/core";
+
 import { modelEvent, EventRow, TasksTabs, EventList } from "entities/event";
 
 import { EventFilter } from "widgets/event-filter";
 
 import { Loader, Placeholder } from "shared/components";
-import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 
 type Props = RouteChildrenProps<{}> & {};
@@ -64,13 +65,16 @@ const TasksPage = reflect({
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     tasks: {
+      position: "relative",
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",
+      width: 1224,
+      margin: `0 auto`,
     },
     content: {
       marginRight: 360 + theme.spacing(12),
-      margin: theme.spacing(6),
+      margin: theme.spacing(6, 0),
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",

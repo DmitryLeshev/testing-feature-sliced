@@ -1,9 +1,10 @@
 import { Suspense } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { router } from "shared/lib";
 
 export const withRouter = (component: () => React.ReactNode) => () =>
   (
-    <BrowserRouter>
+    <Router history={router.history}>
       <Suspense fallback={"Loading..."}>{component()}</Suspense>
-    </BrowserRouter>
+    </Router>
   );

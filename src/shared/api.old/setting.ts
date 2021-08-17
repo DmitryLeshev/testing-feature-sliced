@@ -1,8 +1,9 @@
 import { fetchData } from "shared/fetch";
+import { fetchApi } from "shared/api/cubic/base";
 import { Response } from "shared/api/config";
 import { LoginDTO } from "./auth";
 
-const fetchSettings = fetchData("setting");
+const fetchSettings = fetchApi("setting");
 
 type TypeState = "static" | "pppoe" | "um" | "dhcp6" | "dhcp";
 

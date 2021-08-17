@@ -81,6 +81,12 @@ function Update({ toggleLoader }: Props) {
   const DownloadRowKey = (
     <div className={classes.key}>
       <Typography className={classes.mr_r2}>Загрузка обновления</Typography>
+      {/* <Select {...downloadUpdate} /> */}
+    </div>
+  );
+
+  const DownloadRowKeySecondary = (
+    <div className={classes.keySecondary}>
       <Select {...downloadUpdate} />
     </div>
   );
@@ -93,6 +99,12 @@ function Update({ toggleLoader }: Props) {
       <Typography className={classes.mr_r2}>
         Обновление (с перезагрузкой устройства)
       </Typography>
+      {/* <Select {...typeUpdate} /> */}
+    </div>
+  );
+
+  const UpdateRowKeySecondary = (
+    <div className={classes.keySecondary}>
       <Select {...typeUpdate} />
     </div>
   );
@@ -127,10 +139,36 @@ function Update({ toggleLoader }: Props) {
     </Button>
   );
 
+  const StatusRowKeySecondary = (
+    <div className={classes.keySecondary}>
+      <Button
+        onClick={async () => {
+          toggleLoader();
+          const res = await api.update.checkUpdate();
+          enqueueSnackbar(res);
+          toggleLoader();
+        }}
+      >
+        Проверить обновление
+      </Button>
+    </div>
+  );
+
   const enumerationItems: EnumerationItem[] = [
-    { key: DownloadRowKey, value: DownloadRowValue },
-    { key: UpdateRowKey, value: UpdateRowValue },
-    { key: StatusRowKey, value: StatusRowValue },
+    {
+      key: DownloadRowKey,
+      keySeconday: DownloadRowKeySecondary,
+      value: DownloadRowValue,
+    },
+    {
+      key: UpdateRowKey,
+      keySeconday: UpdateRowKeySecondary,
+      value: UpdateRowValue,
+    },
+    {
+      key: StatusRowKey,
+      keySeconday: StatusRowKeySecondary,
+    },
   ];
 
   const header = (
@@ -153,6 +191,7 @@ function Update({ toggleLoader }: Props) {
     <Card
       className={classes.card}
       header={header}
+      bodyProps={{ className: classes.body }}
       body={body}
       footer={footer}
     />
@@ -161,12 +200,14 @@ function Update({ toggleLoader }: Props) {
 
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
-    card: { gridArea: "update" },
+    body: { flexGrow: 1 },
+    card: { gridArea: "update", maxWidth: 400 },
     btn: { marginLeft: "auto" },
     formControl: {},
     mr_r2: { marginRight: theme.spacing(2) },
     item: {},
     key: { display: "flex", alignItems: "center" },
+    keySecondary: { marginTop: theme.spacing(2) },
   })
 );
 

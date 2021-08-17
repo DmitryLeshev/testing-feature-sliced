@@ -68,9 +68,12 @@ const IncidentsPage = reflect({
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     incidents: {
+      position: "relative",
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",
+      width: 1224,
+      margin: `0 auto`,
     },
     content: {
       marginRight: 360 + theme.spacing(12),

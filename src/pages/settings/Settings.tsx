@@ -9,6 +9,7 @@ import { ITheme } from "shared/ui/theme/theme";
 
 import { Internet, Local, Wifi5, Wifi24 } from "./components";
 import api from "shared/api.old";
+import { NewDesignRouter } from "shared/assets/icons";
 
 interface Props {
   route: any;

@@ -3,7 +3,7 @@ import { useStore } from "effector-react";
 import { events as qEvents, QueryConfig } from "entities/device/model/query";
 
 import { cubicApi, Device } from "shared/api";
-
+import { router } from "shared/lib";
 // [C]reate
 // [R]ead
 // [U]pdate
@@ -11,6 +11,7 @@ import { cubicApi, Device } from "shared/api";
 
 const updateDevice = createEvent<cubicApi.device.SetNewResumeArgs>();
 const selectedDevice = createEvent<QueryConfig>();
+const resetSelectedDevice = createEvent();
 
 const getDevicesFx = createEffect(() => {
   return cubicApi.device.list();
@@ -47,11 +48,19 @@ const updateDeviceFx = createEffect(
 const devicesInitialState: Device[] = [];
 const $devices = createStore(devicesInitialState).on(
   getDevicesFx.doneData,
-  (_, payload) => payload.data
+  (_, payload) => {
+    const device = $device.getState();
+    if (!device.details) {
+      if (payload.data) {
+        router.history.push(`/devices?id=${payload.data[0].id}&tab=info`);
+      }
+    }
+    return payload.data;
+  }
 );
 
 type DeviceInitialStateType = {
-  info?: Device;
+  info?: any;
   tasks?: any;
   incidents?: any;
   programs?: any;
@@ -75,7 +84,8 @@ const $device = createStore(deviceInitialState)
     const devices = $devices.getState();
     const details = devices.find((device) => device.id === payload.id);
     return { ...state, details: details };
-  });
+  })
+  .reset(resetSelectedDevice);
 
 const useDevices = () => {
   return useStore($devices);
@@ -85,6 +95,27 @@ const useDevice = () => {
   return useStore($device);
 };
 
+const $deviceLoading = getDeviceByIdFx.pending;
+const $tasksLoading = getDeviceTasksByIdFx.pending;
+const $incidentsLoading = getDeviceIncidentsByIdFx.pending;
+const $programsLoading = getDeviceProgramsByIdFx.pending;
+
+const useDeviceLoading = () => {
+  return useStore($deviceLoading);
+};
+
+const useTasksLoading = () => {
+  return useStore($tasksLoading);
+};
+
+const useIncidentsLoading = () => {
+  return useStore($incidentsLoading);
+};
+
+const useProgramsLoading = () => {
+  return useStore($programsLoading);
+};
+
 updateDevice.watch(async (payload) => {
   await updateDeviceFx(payload);
   await getDevicesFx();
@@ -92,17 +123,17 @@ updateDevice.watch(async (payload) => {
 });
 
 qEvents.setQueryConfig.watch(async (payload) => {
+  if (!payload.id) console.log("history push");
   selectedDevice(payload);
-  await getDeviceByIdFx(payload);
-  await getDeviceTasksByIdFx(payload);
-  await getDeviceIncidentsByIdFx(payload);
-  await getDeviceProgramsByIdFx(payload);
+  if (payload.tab === "info") await getDeviceByIdFx(payload);
+  else if (payload.tab === "tasks") await getDeviceTasksByIdFx(payload);
+  else if (payload.tab === "incidents") await getDeviceIncidentsByIdFx(payload);
+  else if (payload.tab === "programs") await getDeviceProgramsByIdFx(payload);
 });
-
-getDevicesFx();
 
 export const events = {
   updateDevice,
+  resetSelectedDevice,
 };
 
 export const effects = {
@@ -116,4 +147,8 @@ export const effects = {
 export const selectors = {
   useDevices,
   useDevice,
+  useDeviceLoading,
+  useTasksLoading,
+  useIncidentsLoading,
+  useProgramsLoading,
 };

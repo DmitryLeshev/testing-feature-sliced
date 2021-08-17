@@ -58,14 +58,18 @@ export interface ItemDevice {
   sip: number;
 }
 
-function View({ isLoading }: Props) {
+function View({}: Props) {
   const { t } = useTranslation();
-  const { history, params } = useRouter<{ id: string }>();
   const [state, setState] = useState<{ search: string }>({ search: "" });
   const devices = modelDevices.selectors.useDevices();
   const device = modelDevices.selectors.useDevice();
 
+  const isLoading = modelDevices.selectors.useDeviceLoading();
+
+  console.log({ isLoading });
+
   const id = useGetParameter("id");
+  const tab = useGetParameter("tab");
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.currentTarget;
@@ -75,10 +79,23 @@ function View({ isLoading }: Props) {
   }
 
   useEffect(() => {
-    id && modelDevices.query.events.setQueryConfig({ id: Number(id) });
+    modelDevices.effects.getDevicesFx();
+    return () => {
+      modelDevices.events.resetSelectedDevice();
+    };
+  }, []);
+
+  useEffect(() => {
+    modelDevices.events.resetSelectedDevice();
   }, [id]);
 
-  console.log({ device });
+  useEffect(() => {
+    id &&
+      modelDevices.query.events.setQueryConfig({
+        id: Number(id),
+        tab: tab ?? "info",
+      });
+  }, [id, tab]);
 
   const classes = useStyles();
   return (
@@ -96,7 +113,11 @@ function View({ isLoading }: Props) {
           <List list={devices ?? []} />
         </div>
         <div className={classes.content}>
-          {device.details && <Details selectedItem={device.details} />}
+          {isLoading && !device.details ? (
+            <Loader />
+          ) : (
+            device.details && <Details />
+          )}
         </div>
       </div>
     </Page>
@@ -112,6 +133,8 @@ const useStyles = makeStyles((theme: ITheme) =>
         "leftbar content"
       `,
       gridTemplateColumns: "min-content 1fr",
+      width: 1224,
+      margin: `${theme.spacing(6)}px auto`,
     },
     leftbar: {
       display: "flex",
@@ -119,6 +142,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       width: theme.drawer.openWidth + 50,
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[3],
+      borderRadius: theme.spacing(2),
     },
     content: {
       display: "flex",

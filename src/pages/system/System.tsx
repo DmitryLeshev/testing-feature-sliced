@@ -26,7 +26,7 @@ export default memo(function System({ route }: Props) {
           <Reset />
           <LoginPass />
           <Connection />
-          <Agent />
+          {/* <Agent /> */}
         </div>
       </ScrollableContentiner>
       {/* {renderRoutes(route.routes)} */}
@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme: ITheme) =>
       display: "grid",
       padding: theme.spacing(1.5, 3),
       gridTemplateAreas: `
-        "update update"
-        "reboot reset"
-        "loginpass connect"
-        "loginpass agent"
+        "reboot reset connect update"
+        "loginpass loginpass loginpass update"
       `,
+      // "agent"
       gap: theme.spacing(3),
-      alignItems: "baseline",
+      width: 1224,
+      margin: `${theme.spacing(6)}px auto`,
     },
   })
 );

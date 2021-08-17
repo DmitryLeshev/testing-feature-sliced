@@ -23,17 +23,18 @@ export const TopEventsCard = ({ events, isIncident }: TopEventsCardProps) => {
       bodyProps={{ className: classes.body }}
       body={
         <ul className={classes.list}>
-          {events.map((event, idx) => {
-            const isLastEvent = events.length - 1 === idx;
-            return (
-              <TopEventRow
-                key={idx}
-                isIncident={isIncident}
-                isLastEvent={isLastEvent}
-                {...event}
-              />
-            );
-          })}
+          {events &&
+            events.map((event, idx) => {
+              const isLastEvent = events.length - 1 === idx;
+              return (
+                <TopEventRow
+                  key={idx}
+                  isIncident={isIncident}
+                  isLastEvent={isLastEvent}
+                  {...event}
+                />
+              );
+            })}
         </ul>
       }
     />

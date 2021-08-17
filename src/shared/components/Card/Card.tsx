@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: ITheme) =>
     header: {
       display: "flex",
       alignItems: "center",
-      padding: theme.spacing(2),
+      padding: theme.spacing(3, 2),
     },
     body: {
       display: "flex",
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
     footer: {
       display: "flex",
-      padding: theme.spacing(1, 2),
+      padding: theme.spacing(2),
       background: theme.palette.background.paper,
       borderRadius: theme.spacing(2),
     },

@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       `,
     },
     key: { gridArea: "key" },
-    value: { gridArea: "value", textAlign: "end" },
+    value: { marginLeft: "auto", gridArea: "value", textAlign: "end" },
     key_secodary: { gridArea: "key_s" },
     value_secodary: { gridArea: "value_s", textAlign: "end" },
     secodary: {

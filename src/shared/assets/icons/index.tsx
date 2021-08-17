@@ -23,6 +23,10 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
+import CachedIcon from "@material-ui/icons/Cached";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import RssFeedIcon from "@material-ui/icons/RssFeed";
+
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 
@@ -31,6 +35,9 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import DevicesIcon from "@material-ui/icons/Devices";
 
 export {
+  RssFeedIcon,
+  RefreshIcon,
+  CachedIcon,
   CalendarTodayIcon,
   AccessTimeIcon,
   ArrowBackIcon,
@@ -1282,5 +1289,61 @@ export const NewDesignFlash = () => (
       d="M1.75999 0.1795C1.77523 0.127664 1.80685 0.0821594 1.85011 0.0498C1.89338 0.0174406 1.94597 -3.15932e-05 1.99999 4.28858e-08H3.99999C4.03959 3.00968e-05 4.0786 0.009463 4.11384 0.0275222C4.14907 0.0455814 4.17951 0.0717505 4.20265 0.103875C4.22579 0.136 4.24097 0.173161 4.24694 0.2123C4.25292 0.251439 4.2495 0.291437 4.23699 0.329L3.34699 3H5.24999C5.29681 2.99997 5.3427 3.01308 5.38242 3.03785C5.42215 3.06262 5.45413 3.09804 5.47471 3.14009C5.49529 3.18214 5.50365 3.22913 5.49884 3.2757C5.49403 3.32226 5.47624 3.36655 5.44749 3.4035L1.94749 7.9035C1.91164 7.94982 1.86066 7.98208 1.80344 7.99465C1.74623 8.00722 1.68642 7.9993 1.63445 7.97228C1.58248 7.94525 1.54165 7.90083 1.51909 7.84677C1.49653 7.79272 1.49366 7.73245 1.51099 7.6765L2.41149 4.75H0.749994C0.711126 4.75002 0.672789 4.74098 0.638026 4.7236C0.603263 4.70621 0.573032 4.68096 0.549735 4.64985C0.526438 4.61874 0.510716 4.58262 0.503817 4.54437C0.496918 4.50612 0.499033 4.46679 0.509994 4.4295L1.75999 0.1795Z"
       fill="#FDCF00"
     />
+  </svg>
+);
+
+export const NewDesignRouter = (props: any) => (
+  <svg
+    width="690"
+    height="234"
+    viewBox="0 0 690 234"
+    {...props}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g filter="url(#filter0_d)">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M232.583 9.75053C231.709 8.23594 232.228 6.29923 233.742 5.42478C235.257 4.55033 237.194 5.06927 238.068 6.58386L295.068 105.311C295.376 105.843 295.511 106.428 295.491 107H393.816C393.796 106.428 393.931 105.843 394.239 105.311L451.239 6.58386C452.113 5.06927 454.05 4.55033 455.564 5.42478C457.079 6.29923 457.598 8.23594 456.723 9.75053L400.576 107H659.667C673.658 107 685 118.342 685 132.333V203.667C685 217.658 673.658 229 659.667 229H30.3333C16.3421 229 5 217.658 5 203.667V132.333C5 118.342 16.3421 107 30.3333 107H288.73L232.583 9.75053ZM659.667 110.958H30.3333C18.5282 110.958 8.95833 120.528 8.95833 132.333V203.667C8.95833 215.472 18.5282 225.042 30.3333 225.042H659.667C671.472 225.042 681.042 215.472 681.042 203.667V132.333C681.042 120.528 671.472 110.958 659.667 110.958ZM487 180V152C487 148.134 490.134 145 494 145C497.866 145 501 148.134 501 152V180C501 183.866 497.866 187 494 187C490.134 187 487 183.866 487 180ZM494 144C498.418 144 502 147.582 502 152V180C502 184.418 498.418 188 494 188C489.582 188 486 184.418 486 180V152C486 147.582 489.582 144 494 144ZM515 152V180C515 183.866 518.134 187 522 187C525.866 187 529 183.866 529 180V152C529 148.134 525.866 145 522 145C518.134 145 515 148.134 515 152ZM530 152C530 147.582 526.418 144 522 144C517.582 144 514 147.582 514 152V180C514 184.418 517.582 188 522 188C526.418 188 530 184.418 530 180V152ZM543 180V152C543 148.134 546.134 145 550 145C553.866 145 557 148.134 557 152V180C557 183.866 553.866 187 550 187C546.134 187 543 183.866 543 180ZM550 144C554.418 144 558 147.582 558 152V180C558 184.418 554.418 188 550 188C545.582 188 542 184.418 542 180V152C542 147.582 545.582 144 550 144ZM578 144C582.418 144 586 147.582 586 152V180C586 184.418 582.418 188 578 188C573.582 188 570 184.418 570 180V152C570 147.582 573.582 144 578 144Z"
+        fill="#1CC8EE"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_d"
+        x="0.25"
+        y="0.25"
+        width="689.5"
+        height="233.5"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset />
+        <feGaussianBlur stdDeviation="2.375" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.109804 0 0 0 0 0.784314 0 0 0 0 0.933333 0 0 0 1 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow"
+          result="shape"
+        />
+      </filter>
+    </defs>
   </svg>
 );

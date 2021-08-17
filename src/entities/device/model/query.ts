@@ -3,6 +3,7 @@ import { useStore } from "effector-react";
 
 export type QueryConfig = {
   id: number;
+  tab?: string;
 };
 
 const setQueryConfig = createEvent<QueryConfig>();

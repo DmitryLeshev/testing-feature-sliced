@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { AnketaDTO } from "shared/api.old/server";
 import api from "shared/api.old";
 import { useEffect } from "react";
+import { RssFeedIcon } from "shared/assets/icons";
 
 interface Props {}
 
@@ -150,7 +151,21 @@ export default memo(function Connection({}: Props) {
   const modal = anketa ? RenderAnketa : RenderKey;
   return (
     <>
-      <Card header={header} footer={footer} />
+      <Button
+        color="primary"
+        onClick={async () => {
+          if (!isConnected) return usemodal.openModal();
+          else disconnect();
+        }}
+      >
+        <div className={classes.card2}>
+          <RssFeedIcon className={classes.icon} />
+          <Typography variant="h5">
+            {!isConnected ? t("system:connect") : t("system:disconnect")}
+          </Typography>
+        </div>
+      </Button>
+      {/* <Card header={header} footer={footer} /> */}
       <Modal className={classes.modal} {...usemodal} children={modal} />
     </>
   );
@@ -167,5 +182,15 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
     modal: { minWidth: 800, display: "flex", flexDirection: "column" },
     input: { marginBottom: theme.spacing(2) },
+    card2: {
+      display: "flex",
+      flexDirection: "column",
+      flexGrow: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      width: 198,
+      height: 176,
+    },
+    icon: { width: 84, height: 84, marginBottom: theme.spacing(1) },
   })
 );

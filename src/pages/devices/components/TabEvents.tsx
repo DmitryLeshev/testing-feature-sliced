@@ -1,16 +1,17 @@
-import React, { memo, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { memo, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { createStyles, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
-import useRouter from "shared/hooks/useRouter";
 import { Card, Loader, Placeholder } from "shared/components";
 import { ScrollableContentiner } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 
 import { CardHeader } from "shared/components/Task/components";
+import { modelDevices } from "entities/device";
+import { useGetParameter } from "shared/hooks";
 
 // import api from "shared/api.old";
 
@@ -31,31 +32,22 @@ interface Props {
 
 export default memo(function TabEvents({ className }: Props) {
   const { t } = useTranslation();
-  const params = useParams<{ id: string; tab: string }>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const tab = useGetParameter("tab");
+  const isIncident = tab === "incidents";
+  const device = modelDevices.selectors.useDevice();
+  const events = isIncident ? device.incidents : device.tasks;
+  const isLoading = isIncident
+    ? modelDevices.selectors.useIncidentsLoading()
+    : modelDevices.selectors.useTasksLoading();
 
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const { location } = useRouter();
-
-  const isIncident = location.pathname
-    .split("/")
-    .some((params) => params === "incidents");
-
-  useEffect(() => {
-    setLoading(true);
-    const method = isIncident ? "getIncidents" : "getTasks";
-    // api.device[method]({ id: Number(params.id) }).then((res: any) => {
-    //   setTasks(res.msg);
-    //   setLoading(false);
-    // });
-  }, []);
+  console.log({ isIncident, isLoading, events, device });
 
   const classes = useStyles();
   return (
     <div className={clsx(classes.container, className)}>
-      {loading ? (
+      {isLoading && !events?.length ? (
         <Loader />
-      ) : !tasks.length ? (
+      ) : !events?.length ? (
         <Placeholder
           placeholder={
             isIncident
@@ -71,7 +63,7 @@ export default memo(function TabEvents({ className }: Props) {
             bodyProps={{ className: classes.body }}
             body={
               <ul className={classes.list}>
-                {tasks.map((el: any, index: number) => {
+                {events.map((el: any, index: number) => {
                   const taskCardHeaderProps = {
                     taskNumber: el.type,
                     id: el.id,
@@ -113,6 +105,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       flexDirection: "column",
       gridTemplateColumns: `1fr`,
       gridAutoRows: `auto`,
+      flexGrow: 1,
       padding: 0,
     },
     wrapper: { margin: theme.spacing(1, 2, 0), padding: 0, borderRadius: 0 },
@@ -143,6 +136,11 @@ const useStyles = makeStyles((theme: ITheme) =>
       flexGrow: 1,
       color: theme.palette.text.primary,
       textDecoration: "none",
+    },
+    "@media all and (max-width: 1200px)": {
+      container: {
+        backgroundColor: theme.palette.primary.main,
+      },
     },
   })
 );

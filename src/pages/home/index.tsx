@@ -26,11 +26,10 @@ const View = ({}: Props) => {
   useEffect(() => {
     modelTraffc.effects.getTrafficFx();
     modelRouter.effects.getRouterInfoFx();
+    modelNetworkPort.effects.getMainInfoFx();
   }, []);
 
   if (!traffic.length || !routers.length || !info) return <Loader />;
-
-  console.log({ info });
 
   return (
     <section className={classes.home}>

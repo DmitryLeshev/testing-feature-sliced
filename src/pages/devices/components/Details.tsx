@@ -12,48 +12,42 @@ import tabsConfig, { TABS_COMPONENTS } from "./tabs.config";
 import { useEffect } from "react";
 import { ItemDevice } from "../Devices";
 import { useRouter } from "shared/hooks";
+import { modelDevices } from "entities/device";
 
-interface Props {
-  selectedItem: ItemDevice;
-}
+interface Props {}
 
-export default memo(function Details({ selectedItem }: Props) {
+export default memo(function Details({}: Props) {
   const { t } = useTranslation();
   const usetabs = useTabs();
   const { match } = useRouter<{ id: string }>();
 
-  const [details, setDetails] = useState<ItemDevice | null>(null);
   const classes = useStyles();
+  const device = modelDevices.selectors.useDevice();
+  const isLoading = modelDevices.selectors.useDeviceLoading();
 
   const id: any = useGetParameter("id");
   const tab: any = useGetParameter("tab");
 
-  console.log({ selectedItem });
-
-  useEffect(() => {
-    setDetails(selectedItem);
-  }, [selectedItem]);
-
-  if (!selectedItem) return <Loader />;
+  if (!device.details) return <Loader />;
 
   const Component: any = TABS_COMPONENTS[tab];
 
   return (
     <>
       <div className={classes.detail}>
-        <DeviceIcon className={classes.icon} type={details?.type ?? 0} />
+        <DeviceIcon className={classes.icon} type={device.details?.type ?? 0} />
         <div className={classes.names}>
           <Typography className={classes.name} variant="h4">
-            {details?.name}
+            {device.details?.name}
           </Typography>
           <Typography className={classes.ip} variant="body1">
-            {details?.ip}
+            {device.details?.ip}
           </Typography>
           <Typography className={classes.ip} variant="body1">
-            {details?.mac}
+            {device.details?.mac}
           </Typography>
         </div>
-        {details?.agent && (
+        {device.details?.agent && (
           <Typography className={classes.status}>
             {t("devices:header.agentIsRunning")}
           </Typography>
@@ -62,10 +56,10 @@ export default memo(function Details({ selectedItem }: Props) {
           className={classes.tabs}
           {...usetabs}
           match={match}
-          tabsConfig={tabsConfig(id, details?.agent ?? true)}
+          tabsConfig={tabsConfig(id, device.details?.agent ?? true)}
         />
       </div>
-      {Component && <Component />}
+      {isLoading ? <Loader /> : Component && <Component />}
     </>
   );
 });
@@ -81,15 +75,16 @@ const useStyles = makeStyles((theme: ITheme) =>
       boxShadow: theme.shadows[3],
       backgroundColor: theme.palette.background.paper,
       alignItems: "center",
+      borderRadius: theme.spacing(2),
     },
     tabs: { boxShadow: "none", gridColumn: "1/5" },
     icon: {
       margin: theme.spacing(0, 2),
       width: 80,
       height: 80,
-      fill: theme.palette.primary.dark,
+      fill: theme.palette.primary.main,
     },
-    status: { margin: theme.spacing(0, 2), color: theme.palette.success.dark },
+    status: { margin: theme.spacing(0, 2), color: theme.palette.success.main },
     names: {},
     tab: {
       display: "grid",

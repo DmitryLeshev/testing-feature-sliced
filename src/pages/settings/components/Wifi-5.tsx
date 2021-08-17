@@ -110,7 +110,12 @@ function Wifi5({ toggleLoader, settings }: Props) {
     </>
   );
   const footer = (
-    <Button className={classes.btn} onClick={usemodal.openModal}>
+    <Button
+      className={classes.btn}
+      onClick={usemodal.openModal}
+      color="primary"
+      size="large"
+    >
       {t("settings:save")}
     </Button>
   );
@@ -136,7 +141,12 @@ function Wifi5({ toggleLoader, settings }: Props) {
   );
   return (
     <>
-      <Card header={header} body={body} footer={footer} />
+      <Card
+        header={header}
+        body={body}
+        footerProps={{ className: classes.footer }}
+        footer={footer}
+      />
       <Modal {...usemodal} children={modal} />
     </>
   );
@@ -145,7 +155,8 @@ function Wifi5({ toggleLoader, settings }: Props) {
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     card: { gridArea: "reboot" },
-    btn: { marginLeft: "auto" },
+    footer: { alignItems: "center", justifyContent: "center" },
+    btn: { borderRadius: theme.spacing(3), width: 360 },
     actions: {
       display: "flex",
       marginTop: theme.spacing(2),

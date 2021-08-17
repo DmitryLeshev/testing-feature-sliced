@@ -8,6 +8,8 @@ import { ITheme } from "shared/ui/theme/theme";
 import { useTranslation } from "react-i18next";
 import { withAppContext } from "shared/hocs";
 import { IAppContext } from "shared/contexts/app";
+import CardAction from "./Card";
+import { CachedIcon } from "shared/assets/icons";
 
 interface Props extends IAppContext {}
 
@@ -52,6 +54,20 @@ function Reboot({ reboot }: Props) {
   );
 }
 
+function RebootV2({ reboot }: Props) {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  return (
+    <CardAction
+      action={reboot}
+      className={classes.card}
+      label={t("system:reboot")}
+      icon={CachedIcon}
+    />
+  );
+}
+
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     card: { gridArea: "reboot" },
@@ -65,4 +81,4 @@ const useStyles = makeStyles((theme: ITheme) =>
   })
 );
 
-export default withAppContext(Reboot);
+export default withAppContext(RebootV2);
