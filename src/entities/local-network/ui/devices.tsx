@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       justifyContent: "space-around",
     },
     network_device: {},
-    network_device__type: {},
+    network_device__type: { marginTop: theme.spacing(2), textAlign: "center" },
     shape: {
       display: "flex",
       alignItems: "center",

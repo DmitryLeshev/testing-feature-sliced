@@ -4,7 +4,7 @@ import { createStyles, makeStyles } from "@material-ui/core";
 import { modelAuthCheck } from "processes/auth";
 import { viewerModel } from "entities/viewer";
 import { NewDesignLogout } from "shared/assets/icons";
-import { Button } from "shared/ui/components";
+import { Button, Typography } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 
 interface Props {}
@@ -22,7 +22,7 @@ export function LogoutButton() {
       }}
     >
       <NewDesignLogout className={classes.icon_newDesign} />
-      Выход
+      <Typography variant="body1">Выход</Typography>
     </Button>
   );
 }

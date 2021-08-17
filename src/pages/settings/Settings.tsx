@@ -35,13 +35,14 @@ export default memo(function Settings({ route }: Props) {
     <Page title={t("settings:page")}>
       <ScrollableContentiner>
         <div className={classes.template}>
-          <div className={classes.col}>
-            <Local lan={lanwan?.lan ?? null} />
+          <div className={classes.row}>
             <Wifi24 settings={settings} />
-          </div>
-          <div className={classes.col}>
-            <Internet wan={lanwan?.wan ?? null} />
             <Wifi5 settings={settings} />
+          </div>
+          <NewDesignRouter className={classes.router} />
+          <div className={classes.row}>
+            <Local lan={lanwan?.lan ?? null} />
+            <Internet wan={lanwan?.wan ?? null} />
           </div>
         </div>
       </ScrollableContentiner>
@@ -53,15 +54,23 @@ export default memo(function Settings({ route }: Props) {
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     template: {
-      display: "grid",
-      padding: theme.spacing(1.5, 3),
-      gridTemplateAreas: `
-        "update update"
-        "reboot reset"
-      `,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: theme.spacing(6, 3),
+      width: "1224px",
+      margin: "0 auto",
       gap: theme.spacing(3),
-      alignItems: "baseline",
+      alignItems: "center",
     },
-    col: { display: "grid", gap: theme.spacing(2) },
+    col: { width: "50%", display: "grid", gap: theme.spacing(3) },
+    router: { margin: theme.spacing(6, 0) },
+    row: {
+      display: "flex",
+      width: "100%",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: theme.spacing(2),
+    },
   })
 );

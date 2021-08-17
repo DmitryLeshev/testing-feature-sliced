@@ -1,2 +1,2 @@
-export * from "./login";
+export * from "./login.2";
 export * from "./logout";

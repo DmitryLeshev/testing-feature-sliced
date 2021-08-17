@@ -5,11 +5,6 @@ import { modelLoader } from "processes/loader";
 import { cubicApi } from "shared/api";
 import type { Router, RouterRange } from "shared/api";
 
-const testRouters: Router[] = [
-  { channel: 23, enabled: true, name: "Default 1", range: "2.4" },
-  { channel: 50, enabled: false, name: "Default 2", range: "5" },
-];
-
 const toggleRouter = createEvent<Router>();
 
 const getRouterInfoFx = createEffect(() => {
@@ -25,7 +20,7 @@ export const routerInitialState: Router[] = [];
 export const $routers = createStore(routerInitialState).on(
   getRouterInfoFx.doneData,
   (_, payload) => {
-    return testRouters;
+    return payload.data;
   }
 );
 

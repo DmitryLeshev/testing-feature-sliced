@@ -76,8 +76,9 @@ const useStyles = makeStyles((theme: ITheme) =>
       margin: `0 auto`,
     },
     content: {
-      marginRight: 360 + theme.spacing(12),
+      marginRight: 360 + theme.spacing(2),
       margin: theme.spacing(6),
+      marginLeft: 0,
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",
@@ -95,7 +96,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       display: "flex",
       flexDirection: "column",
       width: 360,
-      right: theme.spacing(6),
+      right: 0,
     },
   })
 );

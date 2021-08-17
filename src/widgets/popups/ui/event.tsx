@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme: ITheme) =>
     dialog: {
       minHeight: `calc(100% - ${theme.spacing(24)}px)`,
       minWidth: `calc(100% - ${theme.spacing(24)}px)`,
+      // maxWidth: "1224px",
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",

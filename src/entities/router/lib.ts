@@ -1,5 +1,5 @@
 import type { Router } from "shared/api";
 
 export const getRouterStatus = (data: Router) => {
-  return data.enabled ? "ON" : "OFF";
+  return data.enabled ? "Включить" : "Выключить";
 };

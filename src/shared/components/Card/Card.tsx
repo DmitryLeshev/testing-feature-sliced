@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       boxShadow: theme.shadows[3],
       borderRadius: theme.spacing(2),
       transition: "all 0.3s",
+      overflow: "hidden",
     }),
     header: {
       display: "flex",

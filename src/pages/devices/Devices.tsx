@@ -8,7 +8,7 @@ import { modelDevices } from "entities/device";
 
 import { useGetParameter, useRouter } from "shared/hooks";
 
-import { Page, Loader } from "shared/components";
+import { Page, Placeholder } from "shared/components";
 import { Input } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 
@@ -64,10 +64,6 @@ function View({}: Props) {
   const devices = modelDevices.selectors.useDevices();
   const device = modelDevices.selectors.useDevice();
 
-  const isLoading = modelDevices.selectors.useDeviceLoading();
-
-  console.log({ isLoading });
-
   const id = useGetParameter("id");
   const tab = useGetParameter("tab");
 
@@ -90,12 +86,12 @@ function View({}: Props) {
   }, [id]);
 
   useEffect(() => {
-    id &&
-      modelDevices.query.events.setQueryConfig({
-        id: Number(id),
-        tab: tab ?? "info",
-      });
-  }, [id, tab]);
+    console.log({ id, tab });
+    modelDevices.query.events.setQueryConfig({
+      id: Number(id),
+      tab: tab ?? "info",
+    });
+  }, [devices, id, tab]);
 
   const classes = useStyles();
   return (
@@ -113,10 +109,12 @@ function View({}: Props) {
           <List list={devices ?? []} />
         </div>
         <div className={classes.content}>
-          {isLoading && !device.details ? (
-            <Loader />
+          {!device.details ? (
+            <div className={classes.placeholder}>
+              <Placeholder placeholder="Выберети устройство" />
+            </div>
           ) : (
-            device.details && <Details />
+            <Details />
           )}
         </div>
       </div>
@@ -149,13 +147,23 @@ const useStyles = makeStyles((theme: ITheme) =>
       flexDirection: "column",
       flexGrow: 1,
     },
-    input: { padding: theme.spacing(1.5, 1.5) },
+    input: { padding: theme.spacing(1.5, 1.5), borderRadius: 40 },
     scroll: { flexGrow: 1 },
     list: { height: 1, flexGrow: 1, overflowY: "auto" },
     item: { overflow: "hidden" },
     active: {
       backgroundColor: theme.palette.action.selected,
       borderRight: `solid 4px ${theme.palette.primary.main}`,
+    },
+    placeholder: {
+      flexGrow: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginLeft: theme.spacing(2),
+      boxShadow: theme.shadows[3],
+      background: theme.palette.background.paper,
+      borderRadius: theme.spacing(2),
     },
   })
 );

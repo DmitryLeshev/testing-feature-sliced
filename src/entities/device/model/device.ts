@@ -49,12 +49,6 @@ const devicesInitialState: Device[] = [];
 const $devices = createStore(devicesInitialState).on(
   getDevicesFx.doneData,
   (_, payload) => {
-    const device = $device.getState();
-    if (!device.details) {
-      if (payload.data) {
-        router.history.push(`/devices?id=${payload.data[0].id}&tab=info`);
-      }
-    }
     return payload.data;
   }
 );
@@ -124,6 +118,7 @@ updateDevice.watch(async (payload) => {
 
 qEvents.setQueryConfig.watch(async (payload) => {
   if (!payload.id) console.log("history push");
+  console.log({ payload });
   selectedDevice(payload);
   if (payload.tab === "info") await getDeviceByIdFx(payload);
   else if (payload.tab === "tasks") await getDeviceTasksByIdFx(payload);
