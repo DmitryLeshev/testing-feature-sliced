@@ -72,10 +72,11 @@ export default function Input(props: Props): ReactElement {
         disabled={props.disabled}
         name={props.name}
         onBlur={onBlur}
+        classes={{root: clsx({[classes.root]: true})}}
         onKeyPress={(e) =>
           e.code === onPressCallback?.code && onPressCallback.cb()
         }
-        inputProps={{ className: classes.input }}
+        inputProps={{ className: clsx(classes.input) }}
         endAdornment={
           end && <InputAdornment position="end">{end}</InputAdornment>
         }
@@ -96,5 +97,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       if (type === "password") exports.fontFamily = "Password";
       return exports;
     },
+    root: {borderRadius: 40}
   })
 );

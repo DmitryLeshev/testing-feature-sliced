@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import {
   useModal,
@@ -7,7 +7,7 @@ import {
   useResponseSnackbar,
 } from "shared/hooks";
 import { Card, Modal } from "shared/components";
-import { Typography, Button, Input } from "shared/ui/components";
+import { Typography, Button, Input, Checkbox, IconButton } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 import { useTranslation } from "react-i18next";
@@ -19,6 +19,9 @@ import {
 import api from "shared/api.old";
 import { withAppContext } from "shared/hocs";
 import { IAppContext } from "shared/contexts/app";
+import clsx from "clsx";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 interface Props extends IAppContext {}
 
@@ -42,26 +45,41 @@ function LoginPass({ toggleLoader }: Props) {
   });
   const classes = useStyles();
   const header = <Typography variant="h5">{t("system:login-pass")}</Typography>;
+
+  // State 
+  const [open, setOpen] = useState<boolean>(true)
+
+  // Inputs
   const body = (
     <>
       <Input
         {...login}
         {...loginValid}
-        className={classes.field}
+        className={clsx(classes.field,)}
         label={t("system:login")}
       />
       <Input
         {...password}
         {...passwordValid}
+        className={classes.field}
         type="password"
+        end={
+          <IconButton onClick={() => setOpen(!open)}>{open ? <VisibilityIcon /> : <VisibilityOffIcon />}</IconButton>
+        }
         label={t("system:password")}
       />
     </>
   );
+
+  // Footer
   const footer = (
+    <>
+      <Checkbox className={classes.choise} label='Запомнить пароль' position='end' />
+
     <Button className={classes.btn} onClick={usemodal.openModal}>
       {t("system:save")}
     </Button>
+    </>
   );
   const modal = (
     <>
@@ -94,7 +112,9 @@ function LoginPass({ toggleLoader }: Props) {
       <Card
         className={classes.card}
         header={header}
+        bodyProps={{className: classes.body}}
         body={body}
+        footerProps={{className: classes.footer}}
         footer={footer}
       />
       <Modal className={classes.modal} {...usemodal} children={modal} />
@@ -105,14 +125,45 @@ function LoginPass({ toggleLoader }: Props) {
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     card: { gridArea: "loginpass" },
-    btn: { marginLeft: "auto" },
+    btn: {
+      width: 360,
+      height: 56,
+
+      borderRadius: 40,
+      border: '2px solid #1CC8EE',
+
+      marginTop: 24,
+      marginBottom: 24,
+
+      alignSelf:'center',
+
+      "&:hover": {
+        backgroundColor: '#1CC8EE',
+        color: 'white'
+      }
+    },
     actions: {
       display: "flex",
       marginTop: theme.spacing(2),
       "& > button:last-child": { marginLeft: theme.spacing(2) },
     },
-    field: { marginBottom: theme.spacing(2) },
+    field: {
+      borderRadius: 40,
+      marginBottom: theme.spacing(2)
+    },
     modal: { minWidth: 600 },
+    body:{},
+    footer:{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start'
+    },
+    choise : {
+      color: '#1CC8EE',
+    },
+
+    AccessAlarm: {},
+    ThreeDRotation: {}
   })
 );
 

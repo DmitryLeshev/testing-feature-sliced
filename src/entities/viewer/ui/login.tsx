@@ -74,7 +74,8 @@ export function AuthByLogin({}: Props) {
       className={classes.card}
       header={
         <Typography className={classes.title} variant="h5">
-          {t("auth:enter")}
+          {/* {t("auth:enter")} */}
+          Авторизация
         </Typography>
       }
       body={
@@ -114,29 +115,76 @@ const useStyles = makeStyles((theme: ITheme) =>
     card: {
       display: "flex",
       flexDirection: "column",
+
       // padding: theme.spacing(2),
-      minWidth: 500,
+      minWidth: 340,
+      maxWidth: 340,
+      background: 'rgba(0, 0, 0, 0)',
+      boxShadow: 'none',
+
+      
+
       [theme.breakpoints.down("sm")]: {
         maxWidth: "100%",
         margin: theme.spacing(3),
       },
     },
-    title: {
+
+    title: {  
+      width: '100%',
+
+      textAlign: 'center',
+
       margin: theme.spacing(1, 0),
+
+      color: '#1CC8EE',
+
+      fontWeight: 700,
     },
+
     content: {
       display: "flex",
       flexDirection: "column",
       padding: 0,
     },
+
     input: {
       marginBottom: theme.spacing(2),
+      
       "&:last-child": {
         marginBottom: 0,
       },
     },
-    footer: { alignItems: "center" },
-    btn: { marginLeft: "auto", margin: theme.spacing(1, 0) },
+
+    footer: { 
+    alignItems: "center",
+    background: 'rgba(0, 0, 0, 0)',
+    boxShadow: 'none',
+
+    },
+    btn: {
+      minWidth: '100%',
+
+      // alignSelf: 'stretch',
+
+      marginLeft: "auto", 
+      margin: theme.spacing(1, 0),
+
+      borderRadius: 40,
+
+      color: '#1CC8EE',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+
+      fontSize: 14,
+      fontWeight: 600,
+
+      border: '2px solid #1CC8EE',
+
+      "&:hover": {
+        backgroundColor: '#1CC8EE',
+        color: 'white',
+      }
+    },
     error: {
       color: theme.palette.error.main,
       transition: "all 0.3s ease-in",
