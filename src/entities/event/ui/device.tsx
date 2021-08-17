@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
 
-import type { EventVarinat } from "shared/api";
 import { Typography } from "shared/ui/components";
 import { DeviceIcon } from "shared/components";
 import { Link } from "react-router-dom";
@@ -31,7 +30,7 @@ export function EventDeviceName({ name }: DeviceNameProps) {
   const classes = useStyles();
 
   return (
-    <Typography className={classes.name} variant="body2">
+    <Typography className={classes.name} variant="caption">
       {name}
     </Typography>
   );
@@ -67,9 +66,9 @@ export function EventDeviceLink({ icon, name, url }: DeviceLinkProps) {
 
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
-    device: { width: 100 },
+    device: { width: 100, fontWeight: 300 },
     icon: {},
-    name: {},
+    name: { fontWeight: 300 },
     link: {
       position: "relative",
       display: "flex",

@@ -13,7 +13,7 @@ interface Props {
 export function EventCreateTime({ createTst }: Props) {
   const classes = useStyles();
   return (
-    <Typography className={classes.create} variant="body2">
+    <Typography className={classes.create} variant="caption">
       <AccessTimeIcon className={classes.icon} />{" "}
       {libEvent.getFormattedCreationTime(createTst)}
     </Typography>
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: ITheme) =>
     create: {
       display: "flex",
       alignItems: "center",
+      fontWeight: 300,
     },
-    icon: { marginRight: theme.spacing(1) },
+    icon: { color: theme.palette.text.primary, marginRight: theme.spacing(1) },
   })
 );

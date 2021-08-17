@@ -43,6 +43,6 @@ export const TopEventsCard = ({ events, isIncident }: TopEventsCardProps) => {
 
 const useStyles = makeStyles((theme) => ({
   card: {},
-  body: {},
+  body: { padding: 0 },
   list: { listStyle: "none", padding: 0, margin: 0 },
 }));

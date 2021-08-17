@@ -24,6 +24,8 @@ export function EventTitle({ variant, type }: Props) {
 
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
-    title: {},
+    title: {
+      fontWeight: 500,
+    },
   })
 );

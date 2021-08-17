@@ -8,6 +8,7 @@ import { libEvent } from "entities/event";
 import { TopEvent } from "shared/api";
 import { NewDesignAlertInfo, NewDesignShieldFail } from "shared/assets/icons";
 import { Divider, Typography } from "shared/ui/components";
+import { EventIcon } from "./icon";
 
 export type Props = TopEvent & {
   isIncident: boolean;
@@ -28,10 +29,21 @@ export function TopEventRow({
     <li className={classes.item}>
       <Link
         className={classes.link}
-        to={!isIncident ? `/tasks/${id}` : `/incidents/${id}`}
+        to={`/home?popup=event&type=${
+          isIncident ? "incident" : "task"
+        }&id=${id}`}
       >
         <span className={classes.iconWrapper}>
-          {isIncident ? (
+          <EventIcon
+            className={classes.iconTasks}
+            fill={
+              isIncident
+                ? theme.palette.text.primary
+                : theme.palette.secondary.main
+            }
+            variant={isIncident ? "incident" : "task"}
+          />
+          {/* {isIncident ? (
             <NewDesignShieldFail
               className={classes.iconTasks}
               size={24}
@@ -43,7 +55,7 @@ export function TopEventRow({
               size={24}
               fill={theme.palette.text.primary}
             />
-          )}
+          )} */}
         </span>
         <Typography className={classes.textPrimary}>
           {t(`${isIncident ? `incident` : "task"}:list.${type}.title`)}
@@ -67,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     flexGrow: 1,
-    padding: theme.spacing(2, 1),
+    padding: theme.spacing(2, 3),
     color: theme.palette.text.primary,
     textDecoration: "none",
   },
@@ -75,7 +87,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     transition: "0.3s",
     cursor: "pointer",
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0),
+    margin: 0,
 
     "&:hover": {
       backgroundColor: theme.palette.action.hover,

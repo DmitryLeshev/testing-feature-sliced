@@ -7,20 +7,21 @@ import clsx from "clsx";
 interface Props {
   variant: "incident" | "task";
   className?: string;
+  fill?: string;
 }
 
-export function EventIcon({ variant, className }: Props) {
+export function EventIcon({ variant, className, fill }: Props) {
   const classes = useStyles();
   const theme = useTheme();
-  return variant === "task" ? (
+  return variant === "incident" ? (
     <NewDesignAlertInfo
       className={clsx(classes.icon, className)}
-      fill={theme.palette.primary.main}
+      fill={fill ? fill : theme.palette.primary.main}
     />
   ) : (
     <NewDesignShieldFail
       className={clsx(classes.icon, className)}
-      fill={theme.palette.secondary.main}
+      fill={fill ? fill : theme.palette.secondary.main}
     />
   );
 }

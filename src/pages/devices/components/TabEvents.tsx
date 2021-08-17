@@ -1,16 +1,15 @@
-import React, { memo, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { memo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { createStyles, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
-import { Card, Loader, Placeholder } from "shared/components";
-import { ScrollableContentiner } from "shared/ui/components";
+import { Loader, Placeholder } from "shared/components";
 import { ITheme } from "shared/ui/theme/theme";
 
-import { CardHeader } from "shared/components/Task/components";
 import { modelDevices } from "entities/device";
+import { EventList, EventRow } from "entities/event";
+
 import { useGetParameter } from "shared/hooks";
 
 // import api from "shared/api.old";
@@ -57,42 +56,19 @@ export default memo(function TabEvents({ className }: Props) {
           animation
         />
       ) : (
-        <ScrollableContentiner>
-          <Card
-            className={classes.wrapper}
-            bodyProps={{ className: classes.body }}
-            body={
-              <ul className={classes.list}>
-                {events.map((el: any, index: number) => {
-                  const taskCardHeaderProps = {
-                    taskNumber: el.type,
-                    id: el.id,
-                    taskType: isIncident ? 1 : 4,
-                    titleVars: el.titleVars,
-                    crt: el.crt,
-                    dashboard: true,
-                    incident: isIncident,
-                    priority: el.priority,
-                  };
-                  return (
-                    <li key={index} className={classes.item}>
-                      <Link
-                        className={classes.link}
-                        to={
-                          !isIncident
-                            ? `/events/tasks/in-work/${el.id}`
-                            : `/events/incidents/${el.id}`
-                        }
-                      >
-                        <CardHeader {...taskCardHeaderProps} />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            }
-          />
-        </ScrollableContentiner>
+        <div className={classes.wrapper}>
+          <EventList>
+            {events.map((event: any) => {
+              return (
+                <EventRow
+                  key={event.id}
+                  data={event}
+                  variant={isIncident ? "incident" : "task"}
+                />
+              );
+            })}
+          </EventList>
+        </div>
       )}
     </div>
   );
@@ -101,14 +77,22 @@ export default memo(function TabEvents({ className }: Props) {
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     container: {
+      position: "relative",
       display: "flex",
-      flexDirection: "column",
-      gridTemplateColumns: `1fr`,
-      gridAutoRows: `auto`,
       flexGrow: 1,
-      padding: 0,
+      flexDirection: "column",
+      margin: theme.spacing(0, 2),
+      boxShadow: theme.shadows[3],
+      background: theme.palette.background.paper,
+      borderRadius: theme.spacing(2),
+      overflow: "hidden",
     },
-    wrapper: { margin: theme.spacing(1, 2, 0), padding: 0, borderRadius: 0 },
+    // Кастылище)
+    wrapper: {
+      position: "absolute",
+      height: "100%",
+      width: "100%",
+    },
     icon: { marginLeft: "auto" },
     btn: { marginRight: theme.spacing(2), "&:last-child": { marginRight: 0 } },
     body: { padding: 0 },
