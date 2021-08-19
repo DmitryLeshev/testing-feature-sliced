@@ -5,18 +5,18 @@ const BASE_PATH = "setting";
 
 const fetchRouter = fetchApi(BASE_PATH);
 
-export type TogleWifiArgs = {
+export type toggleWifiArgs = {
   range: RouterRange;
   started: boolean;
 };
 
-export const togleWifi = async (
-  args: TogleWifiArgs
+export const toggleWifi = async (
+  args: toggleWifiArgs
 ): Promise<Response<any>> => {
-  return await fetchRouter({ togleWifi: args });
+  return await fetchRouter({ toggleWifi: args });
 };
 
-export const getWifiTogleInfo = async (): Promise<Response<Router[]>> => {
-  // console.log("getWifiTogleInfo");
-  return await fetchRouter({ getWifiTogleInfo: {} });
+export const getWifiToggleInfo = async (): Promise<Response<Router[]>> => {
+  // console.log("getWifiToggleInfo");
+  return await fetchRouter({ getWifiToggleInfo: {} });
 };

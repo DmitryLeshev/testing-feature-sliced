@@ -9,13 +9,9 @@ import {
   NewDesignWifi,
   NewDesignSettings,
   NewDesignEdit,
-  NewDesignLogout,
 } from "shared/assets/icons";
-import { RootState } from "shared/store";
 
-export const navigationConfig = (state: RootState) => {
-  const { isNewDesign } = state.app;
-
+export const navigationConfig = () => {
   return [
     {
       title: "Pages",

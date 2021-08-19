@@ -38,6 +38,7 @@ export function Layout(props: Props) {
     <>
       <Loader />
       {!isDefault && <Header />}
+      <div className="full-window bg blur" />
       {isDefault && (
         <Navbar
           navbar={leftbar === "OPEN"}
@@ -79,7 +80,7 @@ const useStyles = makeStyles((theme: ITheme) =>
     mainDefault: {
       flexGrow: 1,
       overflow: "auto",
-      background: theme.palette.background.default,
+      // background: theme.palette.background.default,
       alignItems: "normal",
     },
     // main_mt: { marginTop: theme.spacing(6) },

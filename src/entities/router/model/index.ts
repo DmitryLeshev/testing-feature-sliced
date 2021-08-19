@@ -8,11 +8,11 @@ import type { Router, RouterRange } from "shared/api";
 const toggleRouter = createEvent<Router>();
 
 const getRouterInfoFx = createEffect(() => {
-  return cubicApi.router.getWifiTogleInfo();
+  return cubicApi.router.getWifiToggleInfo();
 });
 
-const togleWifiFx = createEffect((args: cubicApi.router.TogleWifiArgs) => {
-  return cubicApi.router.togleWifi(args);
+const toggleWifiFx = createEffect((args: cubicApi.router.toggleWifiArgs) => {
+  return cubicApi.router.toggleWifi(args);
 });
 
 export const routerInitialState: Router[] = [];
@@ -37,7 +37,7 @@ const useRouter = (range: RouterRange | undefined): Router | undefined => {
 
 toggleRouter.watch(async (payload) => {
   modelLoader.actions.toggleLoader();
-  await togleWifiFx({ range: payload.range, started: !payload.enabled });
+  await toggleWifiFx({ range: payload.range, started: !payload.enabled });
   await getRouterInfoFx();
   modelLoader.actions.toggleLoader();
 });
@@ -48,7 +48,7 @@ export const events = {
 
 export const effects = {
   getRouterInfoFx,
-  togleWifiFx,
+  toggleWifiFx,
 };
 
 export const selectors = {

@@ -199,7 +199,7 @@ const NavigationListItem = (props: any) => {
                 [classes.label_newDesign]: isNewDesign,
               })}
             >
-              {!isNewDesign && <Label count={taskCounter} />}
+              {isNewDesign && <Label count={taskCounter ?? 10} />}
             </span>
           )}
         </Button>

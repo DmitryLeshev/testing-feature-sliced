@@ -1,12 +1,15 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createStyles, makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 import { Card } from "shared/components";
 import { IconButton, Typography } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 import { NewDesignConnectionSpeed } from "shared/assets/icons";
-import clsx from "clsx";
+import { modelConnectionSpeed } from "entities/connection-speed";
+import { useWebSocket } from "shared/hooks";
+import { SERVER_HOST, SW_URL } from "shared/api/config";
 
 type ConnectionSpeedBlockProps = {
   primary: React.ReactElement | string;
@@ -33,6 +36,46 @@ export type ConnectionSpeedCardProps = {};
 export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement {
   const { t } = useTranslation();
   const classes = useStyles();
+  const [sendSpeed, setSendSpeed] = useState<any>({
+    speed: 0,
+  });
+  const [reciveSpeed, setReciveSpeed] = useState<any>({
+    speed: 0,
+  });
+
+  function sendMessage(action: any) {
+    console.log(action);
+  }
+
+  // const [wsStatus, sendMessage, closed] = useWebSocket(
+  //   SW_URL,
+  //   async (msg: any) => {
+  //     const data = await JSON.parse(msg.data ?? "");
+  //     console.log({ data });
+  //     if (data.type === "sendSpeed") {
+  //       setSendSpeed(data);
+  //     } else if (data.type === "reciveSpeed") {
+  //       setReciveSpeed(data);
+  //     } else if (data.type === "meta") {
+  //       setReciveSpeed(data);
+  //       setSendSpeed(data);
+  //     }
+  //   },
+  //   (err: any) => console.log({ err })
+  // );
+
+  // useEffect(() => {
+  //   if (wsStatus === "open") {
+  //     console.log("wsStatus === Open");
+  //     sendMessage({ action: "speedtest" });
+  //   } else if (wsStatus === "closed") {
+  //     console.log("wsStatus === Close");
+  //   }
+  //   return () => {
+  //     closed();
+  //   };
+  // }, [wsStatus]);
+
   const header = (
     <Typography variant="h5">{t("home:network.speed")}</Typography>
   );
@@ -56,7 +99,7 @@ export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement 
                 Прием <span className={classes.speed_dedicated}>MBPS</span>
               </>
             }
-            secondary={"40,0"}
+            secondary={reciveSpeed.speed}
           />
           <span className={clsx(classes.oval, classes.oval_secondary)} />
           <ConnectionSpeedBlock
@@ -65,9 +108,12 @@ export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement 
                 Передача <span className={classes.speed_dedicated}>MBPS</span>
               </>
             }
-            secondary={"31,4"}
+            secondary={sendSpeed.speed}
           />
-          <IconButton className={classes.btn}>
+          <IconButton
+            className={classes.btn}
+            onClick={() => sendMessage({ action: "speedtest" })}
+          >
             <NewDesignConnectionSpeed />
           </IconButton>
         </div>

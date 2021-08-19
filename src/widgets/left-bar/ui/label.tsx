@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 
 import { selectIsNewDesign } from "shared/store/app/selector";
 import { useTypedSelector } from "shared/hooks";
+import { ITheme } from "shared/ui/theme/theme";
 
 export const Label = (props: any) => {
   const isNewDesign = useTypedSelector(selectIsNewDesign);
@@ -29,10 +30,10 @@ export const Label = (props: any) => {
 
   if (variant === "contained") {
     finalStyle.backgroundColor = isNewDesign ? "#1CC8EE" : color;
-    finalStyle.color = "#FFF";
+    // finalStyle.color = "#FFF";
   } else {
     finalStyle.border = `1px solid ${color}`;
-    finalStyle.color = color;
+    // finalStyle.color = color;
   }
 
   return (
@@ -41,12 +42,12 @@ export const Label = (props: any) => {
       style={finalStyle}
       variant="overline"
     >
-      {!isNewDesign ? children : null}
+      {children}
     </Typography>
   );
 };
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: ITheme) => ({
   root: {
     display: "inline-flex",
     alignItems: "center",
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme: any) => ({
     flexGrow: 0,
     flexShrink: 0,
     borderRadius: theme.shape.borderRadius,
+    color: theme.palette.getContrastText(theme.palette.primary.main),
     lineHeight: "10px",
     fontSize: "10px",
     height: 20,

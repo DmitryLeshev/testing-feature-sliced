@@ -126,6 +126,10 @@ qEvents.setQueryConfig.watch(async (payload) => {
   else if (payload.tab === "programs") await getDeviceProgramsByIdFx(payload);
 });
 
+updateDeviceFx.doneData.watch(() => {
+  getDevicesFx();
+});
+
 export const events = {
   updateDevice,
   resetSelectedDevice,
@@ -137,6 +141,7 @@ export const effects = {
   getDeviceTasksByIdFx,
   getDeviceIncidentsByIdFx,
   getDeviceProgramsByIdFx,
+  updateDeviceFx,
 };
 
 export const selectors = {

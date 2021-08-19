@@ -28,7 +28,6 @@ export type DeviceNameProps = {
 
 export function EventDeviceName({ name }: DeviceNameProps) {
   const classes = useStyles();
-
   return (
     <Typography className={classes.name} variant="caption">
       {name}

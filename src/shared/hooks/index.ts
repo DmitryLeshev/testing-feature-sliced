@@ -16,8 +16,10 @@ import useFetch from "./useFetch";
 import useRouter from "./useRouter";
 import useGetParameter from "./useGetParameter";
 import usePrepareLink from "./usePrepareLink";
+import useWebSocket from "./useWebSocket";
 
 export {
+  useWebSocket,
   usePrepareLink,
   useGetParameter,
   useRouter,

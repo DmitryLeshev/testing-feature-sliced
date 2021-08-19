@@ -51,12 +51,12 @@ export interface SetLanSettingsDTO {
   gateway: string;
 }
 
-export interface TogleWifiDTO {
+export interface toggleWifiDTO {
   range: Range;
   started: boolean;
 }
 
-export interface ResTogleWifi {
+export interface RestoggleWifi {
   range: Range;
   enabled: boolean;
   name: string;
@@ -90,8 +90,8 @@ interface IApiSettings {
   changeAuthData: (args: LoginDTO) => any;
   getWifiInfo: () => any;
   getNetworkInfo: () => any;
-  getWifiTogleInfo: () => Promise<Response<ResTogleWifi[]>>;
-  togleWifi: (dto: TogleWifiDTO) => any;
+  getWifiToggleInfo: () => Promise<Response<RestoggleWifi[]>>;
+  toggleWifi: (dto: toggleWifiDTO) => any;
   getDHCP: () => Promise<Response<ResGetDHCP>>;
   changeDHCP: (dto: ChangeDhcpDTO) => any;
 }
@@ -105,8 +105,8 @@ const setting: IApiSettings = {
   getWifiInfo: async () => await fetchSettings({ getWifiInfo: {} }),
   getNetworkInfo: async () => await fetchSettings({ getNetworkInfo: {} }),
   changeAuthData: async (args) => await fetchSettings({ changeAuthData: args }),
-  getWifiTogleInfo: async () => await fetchSettings({ getWifiTogleInfo: {} }),
-  togleWifi: async (dto) => await fetchSettings({ togleWifi: dto }),
+  getWifiToggleInfo: async () => await fetchSettings({ getWifiToggleInfo: {} }),
+  toggleWifi: async (dto) => await fetchSettings({ toggleWifi: dto }),
   getDHCP: async () => await fetchSettings({ getDHCP: {} }),
   changeDHCP: async (dto) => await fetchSettings({ changeDHCP: dto }),
 };

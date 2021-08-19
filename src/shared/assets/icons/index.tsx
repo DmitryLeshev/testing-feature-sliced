@@ -1308,7 +1308,7 @@ export const NewDesignRouter = (props: any) => (
       height="118.042"
       rx="23.3542"
       stroke="#1CC8EE"
-      stroke-width="3.95833"
+      strokeWidth="3.95833"
     />
     <rect
       x="226"
@@ -1368,9 +1368,9 @@ export const NewDesignRouter = (props: any) => (
         width="25.5"
         height="53.5"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
