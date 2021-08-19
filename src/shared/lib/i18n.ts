@@ -31,6 +31,7 @@ const fileNames = [
   "activation",
   "snackbar",
   "vulnerabilities",
+  "profile",
 ];
 
 i18n

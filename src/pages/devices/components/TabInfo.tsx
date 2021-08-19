@@ -21,6 +21,7 @@ import {
 } from "./Cards";
 import { reflect } from "@effector/reflect";
 import { useGetParameter } from "shared/hooks";
+// import { wrap } from "module";
 
 interface Props {
   className?: string;
@@ -36,21 +37,21 @@ function View({ className }: Props) {
     <div className={classes.tab}>
       <ScrollableContentiner>
         <div className={clsx(classes.container, className)}>
-          {/* <div className={classes.col}> */}
-          <CardResume data={device?.info?.resume} />
-          {device?.info?.agentInfo?.main && (
-            <CardMain data={device?.info?.agentInfo?.main} />
-          )}
-          {device?.info?.agentInfo?.users && (
-            <CardUsers data={device?.info?.agentInfo?.users} />
-          )}
-          {/* {device?.info?.agentInfo && <CardAgent />} */}
+          <div className={classes.row}>
+            <div className={clsx(classes.col)}>
+              <CardResume data={device?.info?.resume} />
+              {device?.info?.agentInfo?.main && (
+                <CardMain data={device?.info?.agentInfo?.main} />
+              )}
+            </div>
+            {device?.info?.agentInfo?.users && (
+              <CardUsers data={device?.info?.agentInfo?.users} />
+            )}
+          </div>
+
           {device?.info?.agentInfo && device?.info?.ports && (
             <CardPorts data={device?.info?.ports} />
           )}
-          {/* </div>
-          <div className={classes.col}> */}
-          {/* {!device?.info?.agentInfo && <CardAgent />} */}
           {device?.info?.agentInfo?.eq && (
             <CardEquipment data={device?.info?.agentInfo?.eq} />
           )}
@@ -60,7 +61,6 @@ function View({ className }: Props) {
           {!device?.info?.agentInfo && device?.info?.ports && (
             <CardPorts data={device?.info?.ports} />
           )}
-          {/* </div> */}
         </div>
       </ScrollableContentiner>
     </div>
@@ -75,13 +75,12 @@ const TabInfo = reflect({
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     container: {
-      display: "grid",
-      gridTemplateColumns: `1fr`,
-      gridAutoRows: `min-content`,
-      alignItems: "baseline",
+      display: "flex",
       flexDirection: "column",
-      // padding: theme.spacing(1.5),
-      gap: theme.spacing(2),
+      flexWrap: "nowrap",
+      justifyContent: "space-between",
+
+      gap: theme.spacing(1.5),
     },
     tab: {
       display: "flex",
@@ -90,7 +89,14 @@ const useStyles = makeStyles((theme: ITheme) =>
       height: 0,
       margin: theme.spacing(0, 2),
     },
-    col: { display: "grid", gap: theme.spacing(2) },
+    row: { display: "flex", flexDirection: "row", gap: theme.spacing(1.5) },
+    col: {
+      display: "flex",
+      flexDirection: "column",
+      gap: theme.spacing(1.5),
+      flexGrow: 1,
+      minWidth: 500,
+    },
   })
 );
 

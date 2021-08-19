@@ -244,7 +244,14 @@ export const CardMain = ({ data }: PropsCardMain) => {
     },
     { key: t("devices:info.domain"), value: data?.machineName },
     { key: t("devices:info.host"), value: data?.hostname },
-    { key: t("devices:info.manufacturer"), value: data?.vendor + data?.model },
+    {
+      key: t("devices:info.manufacturer"),
+      value: (
+        <Typography className={classes.eclipse} noWrap>
+          {data?.vendor + data?.model}
+        </Typography>
+      ),
+    },
   ];
 
   return (
@@ -359,5 +366,6 @@ const useStyles = makeStyles((theme: ITheme) =>
     footer_animation_start: { opacity: 0 },
     footer_animation_end: { opacity: 1 },
     agent: { gridArea: "agent" },
+    eclipse: { maxWidth: 150 },
   })
 );
