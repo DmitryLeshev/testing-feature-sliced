@@ -97,10 +97,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       if (type === "password") exports.fontFamily = "Password";
       return exports;
     },
-<<<<<<< HEAD
-    root: {borderRadius: 40}
-=======
     root: { borderRadius: 40 },
->>>>>>> 21426ee285aba401a6f4bcb1ea83994232e54cb7
   })
 );

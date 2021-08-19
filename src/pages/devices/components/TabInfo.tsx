@@ -21,6 +21,7 @@ import {
 } from "./Cards";
 import { reflect } from "@effector/reflect";
 import { useGetParameter } from "shared/hooks";
+// import { wrap } from "module";
 
 interface Props {
   className?: string;
@@ -37,13 +38,17 @@ function View({ className }: Props) {
       <ScrollableContentiner>
         <div className={clsx(classes.container, className)}>
           {/* <div className={classes.col}> */}
+         <div className={classes.upInfo}>
+         <div className={classes.twise}>
           <CardResume data={device?.info?.resume} />
           {device?.info?.agentInfo?.main && (
             <CardMain data={device?.info?.agentInfo?.main} />
           )}
+         </div>
           {device?.info?.agentInfo?.users && (
             <CardUsers data={device?.info?.agentInfo?.users} />
           )}
+          </div>
           {/* {device?.info?.agentInfo && <CardAgent />} */}
           {device?.info?.agentInfo && device?.info?.ports && (
             <CardPorts data={device?.info?.ports} />
@@ -75,14 +80,37 @@ const TabInfo = reflect({
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     container: {
-      display: "grid",
-      gridTemplateColumns: `1fr`,
-      gridAutoRows: `min-content`,
-      alignItems: "baseline",
+      display: "flex",
       flexDirection: "column",
-      // padding: theme.spacing(1.5),
-      gap: theme.spacing(2),
+      flexWrap: "nowrap",
+      justifyContent: "space-between",
+
+      gap: theme.spacing(1.5),
     },
+
+    upInfo: {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "nowrap",
+      justifyContent: "space-between",
+
+      gap: theme.spacing(1.5),
+    },
+
+    twise: {
+      width: "auto",
+      height: "auto",
+
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "nowrap",
+      justifyContent: "space-between",
+      
+      flexGrow: 1,
+
+      gap: theme.spacing(1.5),
+    },
+
     tab: {
       display: "flex",
       flexDirection: "column",

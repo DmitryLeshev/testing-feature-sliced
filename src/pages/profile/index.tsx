@@ -3,45 +3,100 @@ import Switch from '@material-ui/core/Switch';
 import { Block, NoEncryptionTwoTone } from "@material-ui/icons";
 import clsx from "clsx";
 import { NONAME } from "dns";
+import { useTranslation } from "react-i18next";
+
 
 import { Typography } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 
+import './styles.scss'
+
 type Props = {};
+
+function saveTheme() {
+  console.log("SaveTheme")
+}
+function choiseLang(lang: string) {
+  console.log("ChoiseLang", lang)
+}
+function changeTheme() {
+  console.log("ChangeTheme")
+}
+function choiseColor(color: string) {
+  console.log("choiseColor", color)
+}
 
 const ProfilePage = ({ }: Props) => {
   const classes = useStyles();
+  const {t} = useTranslation()
   return (
     <>
       <div className={classes.profile}>
         <section className={classes.container}>
-          <Typography variant='h3' className={classes.heading}>Page Profile</Typography>
+          <Typography variant='h3' className={classes.heading}>{t(`profile:Interface`)}</Typography>
 
           <div className={classes.bloks}>
 
             <div className={classes.blok}>
-              <h4 className={classes.blokText}>Theme</h4>
+              <h4 className={classes.blokText}>{t(`profile:Theme`)}</h4>
               <div className={classes.lighting}>
-                <p className={classes.extraText}>light</p><Switch /><p className={classes.extraText}>dark</p>
+                 <p className={classes.extraText}>{t(`profile:dark`)}</p>
+               <div className='toggle toggle--lighting'>
+                {/* <Switch /> */}
+                <input onChange={(event) => {
+                  console.log("onChange", {event})
+                  changeTheme()
+                  }} 
+                  type="checkbox" id="toggle--daynight" className="toggle--checkbox" />
+			          <label className="toggle--btn" htmlFor="toggle--daynight"><span className="toggle--feature"></span></label>
+               </div>
+                <p className={classes.extraText}>{t(`profile:light`)}</p>
               </div>
               <div className={classes.color}>
-                <p className={classes.extraText}>Colors</p>
+                <p className={clsx(classes.extraText, classes.colorText)}>{t(`profile:Colors`)}</p>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('First')}} className={clsx(classes.colorBtn, classes.colorBtnFirst)}></button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('Second')}} className={clsx(classes.colorBtn, classes.colorBtnSecond)}></button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('Third')}} className={clsx(classes.colorBtn, classes.colorBtnThird)}></button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('Fourth')}} className={clsx(classes.colorBtn, classes.colorBtnFourth)}></button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('Fifth')}} className={clsx(classes.colorBtn, classes.colorBtnFifth)}></button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseColor('Sixth')}} className={clsx(classes.colorBtn, classes.colorBtnSixth)}></button>
               </div>
-              <button className={classes.button}>Save</button>
+              <button onClick={(event) => {
+                console.log("onCLick", {event})
+                saveTheme()
+              }} className={classes.button}>{t(`profile:Save`)}</button>
             </div>
 
             <div className={classes.blok}>
-              <h4 className={classes.blokText}>Language</h4>
+              <h4 className={classes.blokText}>{t(`profile:Language`)}</h4>
               <div className={classes.lanuageDiv}>
-                <button className={classes.langbtn}>English</button>
-                <button className={classes.langbtn}>Русский</button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseLang('EN')
+              }} className={classes.langbtn}>English</button>
+                <button onClick={(event) => {
+                console.log("onCLick", {event})
+                choiseLang('RU')
+              }} className={classes.langbtn}>Русский</button>
               </div>
             </div>
 
-            <div className={classes.blok}>
+            {/* <div className={classes.blok}>
               <h4 className={classes.blokText}>Else</h4>
               <div className={classes.elseDiv}>Something</div>
-            </div>
+            </div> */}
 
           </div>
         </section>
@@ -61,13 +116,14 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
 
     container: {
-      width: 1200,
+      width: 'auto',
       height: 'auto',
-      margin: 24,
-      padding: 16,
+      margin: theme.spacing(6),
+      // padding: '40px',
+      paddingTop: 24,
       borderRadius: 16,
 
-      // backgroundColor: '#21213A',
+      backgroundColor: theme.palette.background.paper,
 
       display: 'flex',
       flexDirection: 'column',
@@ -76,7 +132,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       alignItems: 'center',
       alignContent: 'centr',
 
-      border: '5px solid #21213A',
+      // border: '10px solid #21213A',
     },
 
     heading: {
@@ -88,20 +144,22 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
 
     bloks:{
-      width: '100%',
+      width: 'auto',
       height: 'auto',
 
       margin: 0,
       boxSizing: "border-box",
-      padding: 8,
+      // padding: 8,
+      padding: 40,
+      paddingTop: 16,
 
       display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
+      flexDirection: "column",
+      flexWrap: "nowrap",
       justifyContent: "space-between",
       alignItems: "stretch",
 
-      borderTop: '2px solid #14142A',
+      borderTop: '4px solid #14142A',
     },
 
     blok: {
@@ -110,11 +168,11 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       boxSizing: "border-box",
       padding: 24,
-      marginBottom: 8,
+      marginBottom: 24,
       borderRadius: 16,
 
       // backgroundColor: '#2c2c4b',
-      backgroundColor: theme.palette.background.paper,
+      // backgroundColor: theme.palette.background.paper,
 
       display: "flex",
       flexDirection: "column",
@@ -138,7 +196,8 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
 
     blokText: {
-      fontSize: 24,
+      fontSize: 30,
+      fontWeight: 400,
 
       margin: 0,
       marginBottom: 8,
@@ -150,12 +209,16 @@ const useStyles = makeStyles((theme: ITheme) =>
       flexDirection: "row",
       justifyContent: "space-around",
       alignItems: "center",
+      alignContent: "stretch",
 
-      borderTop: '1px solid #14142A',
+      borderTop: '3px solid #14142A',
+      margin: 8,
+      paddingTop: 16,
+      boxSizing: 'border-box',
     },
 
     extraText: {
-      fontSize: 16,
+      fontSize: 24,
       margin: '8px 0',
     },
 
@@ -163,10 +226,18 @@ const useStyles = makeStyles((theme: ITheme) =>
       width: '100%',
 
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'row',
       alignItems: 'center',
 
-      borderBottom: '1px solid #14142A',
+      margin: 8,
+      boxSizing: 'border-box',
+      padding: 8,
+
+      borderBottom: '3px solid #14142A',
+    },
+
+    colorText: {
+      marginRight: '12px'
     },
 
     lanuageDiv: {
@@ -179,7 +250,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       boxSizing:'border-box',
       padding: '8px 0',
       
-      borderTop: '1px solid #14142A',
+      borderTop: '3px solid #14142A',
       // borderBottom: '1px solid #14142A',
     },
 
@@ -198,7 +269,7 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
 
     button: {
-      width: 120,
+      width: '100%',
       height: 40,
 
       borderRadius: 40,
@@ -211,13 +282,46 @@ const useStyles = makeStyles((theme: ITheme) =>
       color: '#1CC8EE',
       backgroundColor: 'rgba(0, 0, 0, 0)',
 
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: 600,
 
       "&:hover": {
         backgroundColor: '#1CC8EE',
         color: 'white'
       }
+    },
+
+    colorBtn: {
+      width: 25,
+      height: 25,
+
+      margin: 8,
+
+      border: 'none',
+      borderRadius: '50%',
+
+      "&:hover": {
+        cursor: 'pointer'
+      }
+    },
+
+    colorBtnFirst: {
+      background: 'linear-gradient(to right, #1CC8EE 50%, #FE33D1 50%)',
+    },
+    colorBtnSecond: {
+      background: 'linear-gradient(to right, green 50%, yellow 50%)', 
+    },
+    colorBtnThird: {
+      background: 'linear-gradient(to right, green 50%, orange 50%)',
+    },
+    colorBtnFourth: {
+      background: 'linear-gradient(to right, blue 50%, yellow 50%)',
+    },
+    colorBtnFifth: {
+      background: 'linear-gradient(to right, purple 50%, yellow 50%)',
+    },
+    colorBtnSixth: {
+      background: 'linear-gradient(to right, lime 50%, orange 50%)',
     },
 
     langbtn: {
@@ -228,10 +332,10 @@ const useStyles = makeStyles((theme: ITheme) =>
       color: 'white',
 
       border: '2px solid #1CC8EE',
-      borderRadius: 10,
+      borderRadius: 40,
       marginTop: 10,
 
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: 600,
 
       "&:hover": {
@@ -240,49 +344,53 @@ const useStyles = makeStyles((theme: ITheme) =>
       }
     },
 
-    "@media all and (max-width: 1190px)": {
-      container: {
-        width: 800,
-        height: 'auto',
-      },
+    // "@media all and (max-width: 1190px)": {
+    //   container: {
+    //     width: 800,
+    //     height: 'auto',
+    //   },
 
-      bloks: {
-        width: 'auto',
-        height: 'auto',
-        flexWrap: 'wrap',
-        alignContent: 'flex-start',
+    //   bloks: {
+    //     width: 'auto',
+    //     height: 'auto',
+    //     flexWrap: 'wrap',
+    //     alignContent: 'flex-start',
 
-        paddingLeft: 0,
-      },
+    //     paddingLeft: 0,
+    //   },
 
-      blok: {
-        // width: '48%',
-        flexBasic: 'auto',
+    //   blok: {
+    //     // width: '48%',
+    //     flexBasic: 'auto',
 
-        marginBottom: 16,
-        marginLeft: 8,
-      },
-    },
+    //     marginBottom: 16,
+    //     marginLeft: 8,
+    //   },
+    // },
 
-    "@media all and (max-width: 520px)": {
-      container: {
-        width: 'auto',
-        height: 'auto',
-      },
+    // "@media all and (max-width: 820px)": {
+    //   container: {
+    //     width: 'auto',
+    //     height: 'auto',
+    //   },
 
-      bloks: {
-        width: 'auto',
-        height: 'auto',
+    //   bloks: {
+    //     width: 'auto',
+    //     height: 'auto',
 
-        display: 'block',
-        flexWrap: 'nowrap',
-      },
+    //     display: 'block',
+    //     flexWrap: 'nowrap',
+    //   },
       
-      blok: {
-        width: 'auto',
-        marginBottom: '10px',
-      },
-    },
+    //   blok: {
+    //     width: 'auto',
+    //     marginBottom: '10px',
+    //   },
+    // },
+
+    toggleBtn: {},
+    toggleCheckbox: {},
+    toggleText: {},
   })
 );
 
