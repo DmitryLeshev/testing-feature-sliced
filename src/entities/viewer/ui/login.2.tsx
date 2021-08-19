@@ -119,10 +119,8 @@ const useStyles = makeStyles((theme: ITheme) =>
       // padding: theme.spacing(2),
       minWidth: 340,
       maxWidth: 340,
-      background: 'rgba(0, 0, 0, 0)',
-      boxShadow: 'none',
-
-      
+      background: "rgba(0, 0, 0, 0)",
+      boxShadow: "none",
 
       [theme.breakpoints.down("sm")]: {
         maxWidth: "100%",
@@ -130,14 +128,14 @@ const useStyles = makeStyles((theme: ITheme) =>
       },
     },
 
-    title: {  
-      width: '100%',
+    title: {
+      width: "100%",
 
-      textAlign: 'center',
+      textAlign: "center",
 
       margin: theme.spacing(1, 0),
 
-      color: '#1CC8EE',
+      color: "#1CC8EE",
 
       fontWeight: 700,
     },
@@ -150,40 +148,39 @@ const useStyles = makeStyles((theme: ITheme) =>
 
     input: {
       marginBottom: theme.spacing(2),
-      
+
       "&:last-child": {
         marginBottom: 0,
       },
     },
 
-    footer: { 
-    alignItems: "center",
-    background: 'rgba(0, 0, 0, 0)',
-    boxShadow: 'none',
-
+    footer: {
+      alignItems: "center",
+      background: "rgba(0, 0, 0, 0)",
+      boxShadow: "none",
     },
     btn: {
-      minWidth: '100%',
+      minWidth: "100%",
 
       // alignSelf: 'stretch',
 
-      marginLeft: "auto", 
+      marginLeft: "auto",
       margin: theme.spacing(1, 0),
 
       borderRadius: 40,
 
-      color: '#1CC8EE',
-      backgroundColor: 'rgba(0, 0, 0, 0)',
+      color: "#1CC8EE",
+      backgroundColor: "rgba(0, 0, 0, 0)",
 
       fontSize: 14,
       fontWeight: 600,
 
-      border: '2px solid #1CC8EE',
+      border: "2px solid #1CC8EE",
 
       "&:hover": {
-        backgroundColor: '#1CC8EE',
-        color: 'white',
-      }
+        backgroundColor: "#1CC8EE",
+        color: "white",
+      },
     },
     error: {
       color: theme.palette.error.main,

@@ -77,12 +77,12 @@ function Wifi24({ toggleLoader, settings }: Props) {
       channel: Number(canal24.value),
       width: Number(width.value),
     };
-    toggleLoader();
+    // toggleLoader();
     const res = await api.setting.settingWifi(dto);
     enqueueSnackbar(res);
     essid.onChange();
     password.onChange();
-    toggleLoader();
+    // toggleLoader();
   }
 
   const classes = useStyles();

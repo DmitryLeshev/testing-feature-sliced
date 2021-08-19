@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 
 import { createStyles, makeStyles } from "@material-ui/core";
 
-import { useInput, useSelect, useActions } from "shared/hooks";
+import { modelDevices } from "entities/device";
+
+import { useInput, useSelect, useActions, useGetParameter } from "shared/hooks";
 import { Card, Table, Enumeration, DeviceIcon } from "shared/components";
 import {
   Typography,
@@ -107,7 +109,7 @@ interface PropsCardResume {
 }
 export const CardResume = ({ data }: PropsCardResume) => {
   const classes = useStyles();
-  const { id } = useParams<{ id: string }>();
+  const id = useGetParameter("id");
   const { t } = useTranslation();
   const fetchDevices = () => console.log("qwe");
   const [edit, setEdit] = useState<boolean>(false);
@@ -121,6 +123,11 @@ export const CardResume = ({ data }: PropsCardResume) => {
   const select = useSelect({ items: selectItems, selectedValue: deviceType });
 
   async function save() {
+    modelDevices.effects.updateDeviceFx({
+      id: Number(id),
+      name: name,
+      type: select.value,
+    });
     // await api.device.setNewResume({
     //   id: Number(id),
     //   name: name,
@@ -237,7 +244,14 @@ export const CardMain = ({ data }: PropsCardMain) => {
     },
     { key: t("devices:info.domain"), value: data?.machineName },
     { key: t("devices:info.host"), value: data?.hostname },
-    { key: t("devices:info.manufacturer"), value: data?.vendor + data?.model },
+    {
+      key: t("devices:info.manufacturer"),
+      value: (
+        <Typography className={classes.eclipse} noWrap>
+          {data?.vendor + data?.model}
+        </Typography>
+      ),
+    },
   ];
 
   return (
@@ -352,5 +366,6 @@ const useStyles = makeStyles((theme: ITheme) =>
     footer_animation_start: { opacity: 0 },
     footer_animation_end: { opacity: 1 },
     agent: { gridArea: "agent" },
+    eclipse: { maxWidth: 150 },
   })
 );

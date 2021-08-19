@@ -91,12 +91,10 @@ function Wifi5({ toggleLoader, settings }: Props) {
       channel: Number(canal5.value),
       width: Number(width.value),
     };
-    toggleLoader();
     const res = await api.setting.settingWifi(dto);
     enqueueSnackbar(res);
     essid.onChange();
     password.onChange();
-    toggleLoader();
   }
 
   const classes = useStyles();

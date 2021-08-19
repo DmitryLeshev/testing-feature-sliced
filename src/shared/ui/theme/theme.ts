@@ -50,8 +50,8 @@ export const useCustomTheme = (props: Props) => {
               main: colors.secondary,
             },
             background: {
-              default: type === "dark" ? "#14142A" : "#F0F0F0",
-              paper: type === "dark" ? "#21213A" : "#FFFFFF",
+              default: type === "dark" ? "rgba(20, 20, 42, 1)" : "#F0F0F0",
+              paper: type === "dark" ? "rgba(33, 33, 58, 0.8)" : "#FFFFFF",
             },
           },
         },

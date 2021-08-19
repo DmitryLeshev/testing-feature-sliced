@@ -1,10 +1,11 @@
-import declOfNum from './declOfNum';
-import { transformDate, DD_MM_YYYY, hh_mm_DD_MM_YYYY } from './transformDate';
+import declOfNum from "./declOfNum";
+import { transformDate, DD_MM_YYYY, hh_mm_DD_MM_YYYY } from "./transformDate";
+
+const MINUTS = 60;
+const HOUR = MINUTS * 60;
+const DAY = HOUR * 24;
 
 export default function whenWasOnline(timestamp: number) {
-  const HOUR = 3600;
-  const MINUTS = 60;
-
   const date = new Date();
   const time = Math.floor(new Date().getTime() / 1000);
   const today = date.setHours(0, 0, 0, 0) / 1000;
@@ -14,20 +15,27 @@ export default function whenWasOnline(timestamp: number) {
   if (secondsLastLogin < 0)
     return `[timestamp = ${timestamp}] [date = ${transformDate(
       timestamp,
-      hh_mm_DD_MM_YYYY,
+      hh_mm_DD_MM_YYYY
     )}] Привет из будущего`;
 
   if (secondsLastLogin < HOUR) {
     const count = Math.floor(secondsLastLogin / MINUTS);
-    return `Был ${count} ${declOfNum(count, ['минуту', 'минуты', 'минут'])} назад`;
+    return `Был ${count} ${declOfNum(count, [
+      "минуту",
+      "минуты",
+      "минут",
+    ])} назад`;
   }
 
-  if (secondsLastLogin < today) {
+  if (secondsLastLogin < DAY) {
     const count = Math.floor(secondsLastLogin / HOUR);
-    return `Был ${count} ${declOfNum(count, ['час', 'часа', 'часов'])} назад`;
+    return `Был ${count} ${declOfNum(count, ["час", "часа", "часов"])} назад`;
   }
 
-  if (secondsLastLogin < yesterday) return 'Был вчера ';
+  if (secondsLastLogin < yesterday) {
+    const count = Math.floor(secondsLastLogin / DAY);
+    return `Был ${count} ${declOfNum(count, ["день", "дня", "дней"])} назад`;
+  }
 
   return transformDate(timestamp, DD_MM_YYYY);
 }

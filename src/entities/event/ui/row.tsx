@@ -38,15 +38,19 @@ export function EventRow({ data, variant, className }: Props) {
         <div className={classes.info}>
           <EventTitle variant={variant} type={data.type} />
           <div className={classes.info_row}>
-            <EventCriticality crt={Number(data.crt)} />
+            <EventCriticality crt={Number(data.crt ?? 0)} />
             <EventCreateTime createTst={data.createTst} />
           </div>
           <div className={classes.info_row}>
             <EventDeviceType entityType={data.deviceInfo.entityType} />
             <EventDeviceLink
               icon={<EventDeviceIcon type={data.deviceInfo.type} />}
-              name={<EventDeviceName name={data.deviceInfo.name ?? ""} />}
-              url={`/devices?type=local&id=${data.deviceInfo.entityId}`}
+              name={
+                <EventDeviceName
+                  name={data.deviceInfo.name || "Default Name"}
+                />
+              }
+              url={`/devices?&id=${data.deviceInfo.entityId}&tab=info`}
             />
           </div>
         </div>

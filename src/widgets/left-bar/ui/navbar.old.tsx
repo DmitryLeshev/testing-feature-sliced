@@ -16,6 +16,8 @@ import { ITheme } from "shared/ui/theme/theme";
 
 import { settingsConfig, navigationConfig } from "../config";
 import Navigation from "./Navigation";
+
+import { modelNetworkPort } from "entities/local-network";
 import { withBarsContext } from "shared/hocs";
 import { IBarsContext } from "shared/contexts/bars";
 import { selectIsNewDesign } from "shared/store/app/selector";
@@ -23,11 +25,9 @@ import { Logo } from "shared/assets/icons";
 
 interface Props extends IBarsContext {}
 
-function Navbar({ navbar, toggleNavbar, toggleSettingsbar }: Props) {
-  const state = useTypedSelector((state) => state);
+function Navbar({ navbar, toggleNavbar }: Props) {
+  const info = modelNetworkPort.selectors.useInfo();
   const isNewDesign = useTypedSelector(selectIsNewDesign);
-
-  const { appChangeSettingbar } = useActions();
 
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down("sm"));
@@ -35,11 +35,11 @@ function Navbar({ navbar, toggleNavbar, toggleSettingsbar }: Props) {
   const classes = useStyles();
   const content = (
     <div className={clsx(classes.navigation)}>
-      {navigationConfig(state).map((list: any) => (
+      {navigationConfig().map((list: any) => (
         <Navigation
           taskCounter={{
-            countAttacks: 1,
-            countTasks: 1,
+            countAttacks: info?.incident ?? 0,
+            countTasks: info?.vulner ?? 0,
           }}
           component="nav"
           key={list.title}
