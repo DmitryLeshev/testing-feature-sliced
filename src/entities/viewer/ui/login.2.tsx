@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       margin: theme.spacing(1, 0),
 
-      color: "#1CC8EE",
+      color: theme.palette.primary.main,
 
       fontWeight: 700,
     },
@@ -169,17 +169,17 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       borderRadius: 40,
 
-      color: "#1CC8EE",
+      color: theme.palette.primary.main,
       backgroundColor: "rgba(0, 0, 0, 0)",
 
       fontSize: 14,
       fontWeight: 600,
 
-      border: "2px solid #1CC8EE",
+      border: `2px solid ${theme.palette.primary.main}`,
 
       "&:hover": {
-        backgroundColor: "#1CC8EE",
-        color: "white",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
       },
     },
     error: {
