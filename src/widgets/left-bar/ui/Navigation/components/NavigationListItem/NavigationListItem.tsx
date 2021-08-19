@@ -184,7 +184,13 @@ const NavigationListItem = (props: any) => {
               className={clsx(classes.icon, {
                 [classes.icon_newDesign]: isNewDesign,
               })}
-              fill={isActive ? theme.palette.primary.main : "#fff"}
+              fill={
+                isActive
+                  ? theme.palette.primary.main
+                  : theme.palette.getContrastText(
+                      theme.palette.background.paper
+                    )
+              }
             />
           )}
           <Typography
