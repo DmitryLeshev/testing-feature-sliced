@@ -122,7 +122,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       background: 'rgba(0, 0, 0, 0)',
       boxShadow: 'none',
 
-      
 
       [theme.breakpoints.down("sm")]: {
         maxWidth: "100%",
@@ -130,14 +129,14 @@ const useStyles = makeStyles((theme: ITheme) =>
       },
     },
 
-    title: {  
+    title: {
       width: '100%',
 
       textAlign: 'center',
 
       margin: theme.spacing(1, 0),
 
-      color: '#1CC8EE',
+      color: theme.palette.primary.main,
 
       fontWeight: 700,
     },
@@ -150,13 +149,13 @@ const useStyles = makeStyles((theme: ITheme) =>
 
     input: {
       marginBottom: theme.spacing(2),
-      
+
       "&:last-child": {
         marginBottom: 0,
       },
     },
 
-    footer: { 
+    footer: {
     alignItems: "center",
     background: 'rgba(0, 0, 0, 0)',
     boxShadow: 'none',
@@ -167,21 +166,21 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       // alignSelf: 'stretch',
 
-      marginLeft: "auto", 
+      marginLeft: "auto",
       margin: theme.spacing(1, 0),
 
       borderRadius: 40,
 
-      color: '#1CC8EE',
+      color: theme.palette.primary.main,
       backgroundColor: 'rgba(0, 0, 0, 0)',
 
       fontSize: 14,
       fontWeight: 600,
 
-      border: '2px solid #1CC8EE',
+      border: `2px solid ${theme.palette.primary.main}`,
 
       "&:hover": {
-        backgroundColor: '#1CC8EE',
+        backgroundColor: theme.palette.primary.main,
         color: 'white',
       }
     },

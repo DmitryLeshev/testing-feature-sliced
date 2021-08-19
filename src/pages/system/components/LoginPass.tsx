@@ -46,7 +46,7 @@ function LoginPass({ toggleLoader }: Props) {
   const classes = useStyles();
   const header = <Typography variant="h5">{t("system:login-pass")}</Typography>;
 
-  // State 
+  // State
   const [open, setOpen] = useState<boolean>(true)
 
   // Inputs
@@ -130,7 +130,9 @@ const useStyles = makeStyles((theme: ITheme) =>
       height: 56,
 
       borderRadius: 40,
-      border: '2px solid #1CC8EE',
+      border: `2px solid ${theme.palette.primary.main}`,
+
+      color: theme.palette.getContrastText(theme.palette.background.paper),
 
       marginTop: 24,
       marginBottom: 24,
@@ -138,8 +140,8 @@ const useStyles = makeStyles((theme: ITheme) =>
       alignSelf:'center',
 
       "&:hover": {
-        backgroundColor: '#1CC8EE',
-        color: 'white'
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
       }
     },
     actions: {
@@ -159,7 +161,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       justifyContent: 'flex-start'
     },
     choise : {
-      color: '#1CC8EE',
+      color: theme.palette.primary.main,
     },
 
     AccessAlarm: {},

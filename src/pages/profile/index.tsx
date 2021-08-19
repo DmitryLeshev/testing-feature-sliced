@@ -325,7 +325,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       backgroundColor: "rgba(0, 0, 0, 0)",
 
       fontSize: 16,
-      fontWeight: 600,
+      fontWeight: 400,
 
       "&:hover": {
         backgroundColor: theme.palette.primary.main,
@@ -373,7 +373,7 @@ const useStyles = makeStyles((theme: ITheme) =>
       marginTop: 10,
 
       fontSize: 16,
-      fontWeight: 600,
+      fontWeight: 400,
 
       "&:hover": {
         backgroundColor: theme.palette.primary.main,
