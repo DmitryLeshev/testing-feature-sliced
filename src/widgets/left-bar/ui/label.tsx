@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import { Typography } from "@material-ui/core";
+import { Typography, useTheme } from "@material-ui/core";
 
 import { selectIsNewDesign } from "shared/store/app/selector";
 import { useTypedSelector } from "shared/hooks";
@@ -20,6 +20,7 @@ export const Label = (props: any) => {
   } = props;
 
   const classes = useStyles();
+  const theme = useTheme();
 
   const rootClassName = clsx({
     [classes.root]: true,
@@ -29,7 +30,9 @@ export const Label = (props: any) => {
   const finalStyle = { ...style };
 
   if (variant === "contained") {
-    finalStyle.backgroundColor = isNewDesign ? "#1CC8EE" : color;
+    finalStyle.backgroundColor = isNewDesign
+      ? theme.palette.primary.main
+      : color;
     // finalStyle.color = "#FFF";
   } else {
     finalStyle.border = `1px solid ${color}`;

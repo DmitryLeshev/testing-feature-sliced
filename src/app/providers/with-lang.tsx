@@ -18,7 +18,7 @@ export const withLang = (Child: React.ComponentType) => {
 
     return (
       <LangContext.Provider value={{ changeLang, lang }}>
-        <Child {...props} />;
+        <Child {...props} />
       </LangContext.Provider>
     );
   };
