@@ -45,8 +45,8 @@ i18n
     ns: fileNames,
     react: { useSuspense: true },
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json",
-      addPath: `/locales/{{lng}}/{{ns}}.json`,
+      loadPath: "/locales/ru/{{ns}}.json",
+      addPath: `/locales/ru/{{ns}}.json`,
     },
   });
 

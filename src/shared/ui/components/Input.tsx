@@ -76,7 +76,7 @@ export default function Input(props: Props): ReactElement {
         onKeyPress={(e) =>
           e.code === onPressCallback?.code && onPressCallback.cb()
         }
-        inputProps={{ className: classes.input }}
+        inputProps={{ className: clsx(classes.input) }}
         endAdornment={
           end && <InputAdornment position="end">{end}</InputAdornment>
         }

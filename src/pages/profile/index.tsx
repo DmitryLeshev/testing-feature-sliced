@@ -20,7 +20,7 @@ function saveTheme() {
   console.log("SaveTheme");
 }
 
-const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
+const ProfilePage = ({mode, toggleMode, changeColor, changeLang }: Props) => {
   const classes = useStyles();
 
   const { t } = useTranslation();
@@ -40,6 +40,10 @@ const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
     changeLang(lang);
   }
 
+  console.log("theme", mode)
+  const toggleValue = mode === 'dark' ? false : true
+
+
   return (
     <>
       <div className={classes.profile}>
@@ -54,8 +58,8 @@ const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
               <div className={classes.lighting}>
                 <p className={classes.extraText}>{t(`profile:dark`)}</p>
                 <div className="toggle toggle--lighting">
-                  {/* <Switch /> */}
                   <input
+                    checked={toggleValue}
                     onChange={(event) => {
                       console.log("onChange", { event });
                       changeTheme();
@@ -77,7 +81,7 @@ const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
                 <button
                   onClick={(event) => {
                     console.log("onCLick", { event });
-                    // choiseColor("First");
+                    choiseColor(["#1CC8EE", "#FE33D1"]);
                   }}
                   className={clsx(classes.colorBtn, classes.colorBtnFirst)}
                 ></button>
@@ -91,28 +95,28 @@ const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
                 <button
                   onClick={(event) => {
                     console.log("onCLick", { event });
-                    // choiseColor("Third");
+                    choiseColor(["#00BA88", "#F46140"]);
                   }}
                   className={clsx(classes.colorBtn, classes.colorBtnThird)}
                 ></button>
                 <button
                   onClick={(event) => {
                     console.log("onCLick", { event });
-                    // choiseColor("Fourth");
+                    choiseColor(["#244CDA", "#F4B740"]);
                   }}
                   className={clsx(classes.colorBtn, classes.colorBtnFourth)}
                 ></button>
                 <button
                   onClick={(event) => {
                     console.log("onCLick", { event });
-                    // choiseColor("Fifth");
+                    choiseColor(["#5F2EEA", "#F4B740"]);
                   }}
                   className={clsx(classes.colorBtn, classes.colorBtnFifth)}
                 ></button>
                 <button
                   onClick={(event) => {
                     console.log("onCLick", { event });
-                    // choiseColor("Sixth");
+                    choiseColor(["#A5F440", "#F46140"]);
                   }}
                   className={clsx(classes.colorBtn, classes.colorBtnSixth)}
                 ></button>
@@ -151,11 +155,6 @@ const ProfilePage = ({ toggleMode, changeColor, changeLang }: Props) => {
                 </button>
               </div>
             </div>
-
-            {/* <div className={classes.blok}>
-              <h4 className={classes.blokText}>Else</h4>
-              <div className={classes.elseDiv}>Something</div>
-            </div> */}
           </div>
         </section>
       </div>
@@ -177,7 +176,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       width: "auto",
       height: "auto",
       margin: theme.spacing(6),
-      // padding: '40px',
       paddingTop: 24,
       borderRadius: 16,
 
@@ -189,8 +187,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       justifyContent: "flex-start",
       alignItems: "center",
       alignContent: "centr",
-
-      // border: '10px solid #21213A',
     },
 
     heading: {
@@ -207,7 +203,6 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       margin: 0,
       boxSizing: "border-box",
-      // padding: 8,
       padding: 40,
       paddingTop: 16,
 
@@ -221,25 +216,16 @@ const useStyles = makeStyles((theme: ITheme) =>
     },
 
     blok: {
-      // width: '23%',
-      // flexGrow: 1,
-
       boxSizing: "border-box",
       padding: 24,
       marginBottom: 24,
       borderRadius: 16,
-
-      // backgroundColor: '#2c2c4b',
-      // backgroundColor: theme.palette.background.paper,
 
       display: "flex",
       flexDirection: "column",
       flexWrap: "nowrap",
       justifyContent: "center",
       alignItems: "center",
-      // flexBasis: 'auto',
-      // flexShrink: 1,
-      // alignSelf: 'stretch',
     },
 
     Name: {
@@ -309,7 +295,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       padding: "8px 0",
 
       borderTop: "3px solid #14142A",
-      // borderBottom: '1px solid #14142A',
     },
 
     elseDiv: {
@@ -323,7 +308,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       padding: "8px 0",
 
       borderTop: "1px solid #14142A",
-      // borderBottom: '1px solid #14142A',
     },
 
     button: {
@@ -331,21 +315,21 @@ const useStyles = makeStyles((theme: ITheme) =>
       height: 40,
 
       borderRadius: 40,
-      border: "2px solid #1CC8EE",
+      border: `2px solid ${theme.palette.primary.main}`,
       boxSizing: "border-box",
       margin: 8,
       marginBottom: 0,
       padding: 5,
 
-      color: "#1CC8EE",
+      color: theme.palette.getContrastText(theme.palette.background.paper),
       backgroundColor: "rgba(0, 0, 0, 0)",
 
       fontSize: 16,
       fontWeight: 600,
 
       "&:hover": {
-        backgroundColor: "#1CC8EE",
-        color: "white",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
       },
     },
 
@@ -362,19 +346,19 @@ const useStyles = makeStyles((theme: ITheme) =>
       background: "linear-gradient(to right, #1CC8EE 50%, #FE33D1 50%)",
     },
     colorBtnSecond: {
-      background: "linear-gradient(to right, green 50%, yellow 50%)",
+      background: "linear-gradient(to right, #00BA88 50%, #F4B740 50%)",
     },
     colorBtnThird: {
-      background: "linear-gradient(to right, green 50%, orange 50%)",
+      background: "linear-gradient(to right, #00BA88 50%, #F46140 50%)",
     },
     colorBtnFourth: {
-      background: "linear-gradient(to right, blue 50%, yellow 50%)",
+      background: "linear-gradient(to right, #244CDA 50%, #F4B740 50%)",
     },
     colorBtnFifth: {
-      background: "linear-gradient(to right, purple 50%, yellow 50%)",
+      background: "linear-gradient(to right, #5F2EEA 50%, #F4B740 50%)",
     },
     colorBtnSixth: {
-      background: "linear-gradient(to right, lime 50%, orange 50%)",
+      background: "linear-gradient(to right, #A5F440 50%, #F46140 50%)",
     },
 
     langbtn: {
@@ -382,9 +366,9 @@ const useStyles = makeStyles((theme: ITheme) =>
       height: 50,
 
       backgroundColor: "rgba(0, 0, 0, 0)",
-      color: "white",
+      color: theme.palette.getContrastText(theme.palette.background.paper),
 
-      border: "2px solid #1CC8EE",
+      border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: 40,
       marginTop: 10,
 
@@ -392,34 +376,10 @@ const useStyles = makeStyles((theme: ITheme) =>
       fontWeight: 600,
 
       "&:hover": {
-        backgroundColor: "#1CC8EE",
-        color: "white",
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.getContrastText(theme.palette.background.paper),
       },
     },
-
-    // "@media all and (max-width: 1190px)": {
-    //   container: {
-    //     width: 800,
-    //     height: 'auto',
-    //   },
-
-    //   bloks: {
-    //     width: 'auto',
-    //     height: 'auto',
-    //     flexWrap: 'wrap',
-    //     alignContent: 'flex-start',
-
-    //     paddingLeft: 0,
-    //   },
-
-    //   blok: {
-    //     // width: '48%',
-    //     flexBasic: 'auto',
-
-    //     marginBottom: 16,
-    //     marginLeft: 8,
-    //   },
-    // },
 
     // "@media all and (max-width: 820px)": {
     //   container: {
@@ -434,16 +394,11 @@ const useStyles = makeStyles((theme: ITheme) =>
     //     display: 'block',
     //     flexWrap: 'nowrap',
     //   },
-
     //   blok: {
     //     width: 'auto',
     //     marginBottom: '10px',
     //   },
     // },
-
-    toggleBtn: {},
-    toggleCheckbox: {},
-    toggleText: {},
   })
 );
 

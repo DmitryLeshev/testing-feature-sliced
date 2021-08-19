@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme: ITheme) =>
 
       gap: theme.spacing(1.5),
     },
+
     tab: {
       display: "flex",
       flexDirection: "column",
