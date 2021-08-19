@@ -37,7 +37,7 @@ export const Event = ({ isOpened }: Props) => {
   const { getDetailsFx } = modelEvent.detailsEffects;
 
   useEffect(() => {
-    getDetailsFx({ id: Number(id) });
+    getDetailsFx({ type, id: Number(id) });
   }, [id]);
 
   return (

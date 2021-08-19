@@ -39,7 +39,10 @@ function View({ className }: Props) {
         <div className={clsx(classes.container, className)}>
           <div className={classes.row}>
             <div className={clsx(classes.col)}>
-              <CardResume data={device?.info?.resume} />
+              <CardResume
+                data={device?.info?.resume}
+                isRouter={device.details?.isRouter ?? true}
+              />
               {device?.info?.agentInfo?.main && (
                 <CardMain data={device?.info?.agentInfo?.main} />
               )}

@@ -15,6 +15,7 @@ import SystemPage from "./system";
 import TasksPage from "./tasks";
 import AuthPage from "./auth";
 import { Loader } from "shared/components";
+import { APP_MODE } from "shared/config";
 
 type Props = RouteProps & {
   component: any;
@@ -56,11 +57,13 @@ const PrivateRoute = ({ component: Component, ...rest }: Props) => {
 };
 
 export const Routing = () => {
+  const isServer = APP_MODE !== "CUBIC";
+
   return (
     <>
       <Switch>
         <PrivateRoute exact path="/devices" component={DevicesPage} />
-        <PrivateRoute exact path="/home" component={HomePage} />
+        {!isServer && <PrivateRoute exact path="/home" component={HomePage} />}
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/incidents" component={IncidentsPage} />
         <PrivateRoute exact path="/settings" component={SettingsPage} />

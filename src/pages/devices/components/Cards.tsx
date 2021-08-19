@@ -106,8 +106,9 @@ export const CardPorts = ({ data }: PropsCardPorts) => {
 
 interface PropsCardResume {
   data: any;
+  isRouter: boolean;
 }
-export const CardResume = ({ data }: PropsCardResume) => {
+export const CardResume = ({ data, isRouter }: PropsCardResume) => {
   const classes = useStyles();
   const id = useGetParameter("id");
   const { t } = useTranslation();
@@ -186,12 +187,14 @@ export const CardResume = ({ data }: PropsCardResume) => {
       header={
         <>
           <Typography variant="h4">{t(`devices:info.resume.title`)}</Typography>
-          <IconButton
-            className={classes.icon}
-            onClick={() => setEdit((prev) => !prev)}
-          >
-            <CreateIcon />
-          </IconButton>
+          {!isRouter && (
+            <IconButton
+              className={classes.icon}
+              onClick={() => setEdit((prev) => !prev)}
+            >
+              <CreateIcon />
+            </IconButton>
+          )}
         </>
       }
       body={<Enumeration items={enumerationItems} />}

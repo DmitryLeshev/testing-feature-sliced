@@ -34,4 +34,5 @@ export type Device = {
   isUserOs: false;
   dhcpStatus: DhcpStatusDevice;
   sip: number;
+  isRouter: boolean;
 };

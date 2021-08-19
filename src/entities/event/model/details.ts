@@ -6,9 +6,12 @@ import { cubicApi, Event } from "shared/api";
 const $details = createStore<Event | null>(null);
 const useDetails = () => useStore($details);
 
-const getDetailsFx = createEffect((args: cubicApi.event.GetArgs) => {
-  return cubicApi.event.taskGet(args);
-});
+const getDetailsFx = createEffect(
+  ({ type, id }: cubicApi.event.GetArgs & { type: "task" | "incident" }) => {
+    const action = type === "task" ? "taskGet" : "incidentGet";
+    return cubicApi.event[action]({ id });
+  }
+);
 
 $details.on(getDetailsFx.doneData, (_, payload) => payload.data);
 

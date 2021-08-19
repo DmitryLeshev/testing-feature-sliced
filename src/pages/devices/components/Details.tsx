@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { createStyles, makeStyles } from "@material-ui/core";
 
 import { DeviceIcon, Tabs, Loader } from "shared/components";
-import { Typography } from "shared/ui/components";
+import { Divider, Typography } from "shared/ui/components";
 import { useGetParameter, useTabs } from "shared/hooks";
 import { ITheme } from "shared/ui/theme/theme";
 
@@ -77,7 +77,15 @@ const useStyles = makeStyles((theme: ITheme) =>
       alignItems: "center",
       borderRadius: theme.spacing(2),
     },
-    tabs: { boxShadow: "none", gridColumn: "1/5" },
+    tabs: {
+      gridColumn: "1/5",
+      marginTop: theme.spacing(1),
+      background: "none",
+      boxShadow: "none",
+      borderTop: `1px solid ${theme.palette.background.default}`,
+      borderRadius: `0px 0px ${theme.spacing(2)}px ${theme.spacing(2)}px`,
+      overflow: "hidden",
+    },
     icon: {
       margin: theme.spacing(0, 2),
       width: 80,
