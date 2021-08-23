@@ -1,6 +1,6 @@
-import { ReactElement, useRef, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { createStyles, makeStyles } from "@material-ui/core";
+import { CircularProgress, createStyles, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
 import { Card } from "shared/components";
@@ -8,8 +8,6 @@ import { IconButton, Typography } from "shared/ui/components";
 import { ITheme } from "shared/ui/theme/theme";
 import { NewDesignConnectionSpeed } from "shared/assets/icons";
 import { modelConnectionSpeed } from "entities/connection-speed";
-import { useWebSocket } from "shared/hooks";
-import { SERVER_HOST, SW_URL } from "shared/api/config";
 
 type ConnectionSpeedBlockProps = {
   primary: React.ReactElement | string;
@@ -36,48 +34,21 @@ export type ConnectionSpeedCardProps = {};
 export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [sendSpeed, setSendSpeed] = useState<any>({
-    speed: 0,
-  });
-  const [reciveSpeed, setReciveSpeed] = useState<any>({
-    speed: 0,
-  });
 
-  function sendMessage(action: any) {
-    console.log(action);
-  }
+  const speed = modelConnectionSpeed.selectors.useSpeed();
+  const isTesting = modelConnectionSpeed.selectors.useIsTesting();
 
-  // const [wsStatus, sendMessage, closed] = useWebSocket(
-  //   SW_URL,
-  //   async (msg: any) => {
-  //     const data = await JSON.parse(msg.data ?? "");
-  //     console.log({ data });
-  //     if (data.type === "sendSpeed") {
-  //       setSendSpeed(data);
-  //     } else if (data.type === "reciveSpeed") {
-  //       setReciveSpeed(data);
-  //     } else if (data.type === "meta") {
-  //       setReciveSpeed(data);
-  //       setSendSpeed(data);
-  //     }
-  //   },
-  //   (err: any) => console.log({ err })
-  // );
-
-  // useEffect(() => {
-  //   if (wsStatus === "open") {
-  //     console.log("wsStatus === Open");
-  //     sendMessage({ action: "speedtest" });
-  //   } else if (wsStatus === "closed") {
-  //     console.log("wsStatus === Close");
-  //   }
-  //   return () => {
-  //     closed();
-  //   };
-  // }, [wsStatus]);
+  useEffect(() => {
+    modelConnectionSpeed.actions.getSpeed();
+  }, []);
 
   const header = (
-    <Typography variant="h5">{t("home:network.speed")}</Typography>
+    <>
+      <Typography className={classes.full} variant="h5">
+        {t("home:network.speed")}
+      </Typography>
+      {isTesting && <CircularProgress size={24} />}
+    </>
   );
   return (
     <Card
@@ -90,7 +61,7 @@ export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement 
                 PING <span className={classes.speed_dedicated}>MS</span>
               </>
             }
-            secondary={"2"}
+            secondary={String(speed.ping)}
           />
           <span className={classes.oval} />
           <ConnectionSpeedBlock
@@ -99,7 +70,7 @@ export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement 
                 Прием <span className={classes.speed_dedicated}>MBPS</span>
               </>
             }
-            secondary={reciveSpeed.speed}
+            secondary={String(speed.download)}
           />
           <span className={clsx(classes.oval, classes.oval_secondary)} />
           <ConnectionSpeedBlock
@@ -108,11 +79,11 @@ export function ConnectionSpeedCard({}: ConnectionSpeedCardProps): ReactElement 
                 Передача <span className={classes.speed_dedicated}>MBPS</span>
               </>
             }
-            secondary={sendSpeed.speed}
+            secondary={String(speed.upload)}
           />
           <IconButton
             className={classes.btn}
-            onClick={() => sendMessage({ action: "speedtest" })}
+            onClick={() => modelConnectionSpeed.actions.runSpeedTestStart()}
           >
             <NewDesignConnectionSpeed />
           </IconButton>
@@ -143,5 +114,6 @@ const useStyles = makeStyles((theme: ITheme) =>
     oval_secondary: { backgroundColor: theme.palette.secondary.main },
     speed_dedicated: { color: "#8B8AD1" },
     btn: { marginLeft: "auto" },
+    full: { width: "100%" },
   })
 );

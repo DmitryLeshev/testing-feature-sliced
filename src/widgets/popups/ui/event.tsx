@@ -63,7 +63,11 @@ export const Event = ({ isOpened }: Props) => {
                 />
               </IconButton>
               <EventIcon className={classes.icon} variant={type} />
-              <EventTitle variant={type} type={details.type} />
+              <EventTitle
+                variant={type}
+                type={details.type}
+                titleVars={details.titleVars}
+              />
               <EventID className={classes.id} id={details.id} />
             </div>
             <div className={classes.info}>
@@ -94,8 +98,8 @@ const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
     dialog: {
       minHeight: `calc(100% - ${theme.spacing(24)}px)`,
-      minWidth: `calc(100% - ${theme.spacing(24)}px)`,
-      // maxWidth: "1224px",
+      // minWidth: `calc(100% - ${theme.spacing(24)}px)`,
+      maxWidth: "1224px",
       flexGrow: 1,
       display: "flex",
       flexDirection: "column",

@@ -31,12 +31,17 @@ export function EventRow({ data, variant, className }: Props) {
     status ?? "in-work"
   }&popup=event&type=${variant}&id=${data.id}`;
   const url = pathname + taskParams;
+
   return (
     <li className={clsx(classes.event, className)}>
       <Link className={classes.link} to={url}>
         <EventIcon variant={variant} />
         <div className={classes.info}>
-          <EventTitle variant={variant} type={data.type} />
+          <EventTitle
+            variant={variant}
+            type={data.type}
+            titleVars={data.titleVars}
+          />
           <div className={classes.info_row}>
             <EventCriticality crt={Number(data.crt ?? 0)} />
             <EventCreateTime createTst={data.createTst} />

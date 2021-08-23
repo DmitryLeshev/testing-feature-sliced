@@ -67,7 +67,7 @@ function EventDefaultDescription({
 }
 
 export const READY_TEMPLATES: any = {
-  task: [13, 14],
+  task: [1, 13, 14],
   incident: [4, 6],
 };
 
@@ -100,7 +100,14 @@ export function EventDescription({
     />
   ) : (
     <Suspense fallback={<Loader />}>
-      <CustomTemplate {...details} />
+      <CustomTemplate {...details}>
+        <EventDefaultDescription
+          type={details.type}
+          titleVars={details.titleVars}
+          body={details.body}
+          controller={controller}
+        />
+      </CustomTemplate>
     </Suspense>
   );
 }

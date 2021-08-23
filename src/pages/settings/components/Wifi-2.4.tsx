@@ -24,11 +24,12 @@ interface Props extends IAppContext {
   settings: {
     "2.4": ISetting;
   };
+  getInfo: any;
 }
 const { minValue, stringMustContainNumber, stringMustContainCpecoalCharacter } =
   validations;
 
-function Wifi24({ toggleLoader, settings }: Props) {
+function Wifi24({ toggleLoader, settings, getInfo }: Props) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useResponseSnackbar();
   const usemodal = useModal();
@@ -54,7 +55,6 @@ function Wifi24({ toggleLoader, settings }: Props) {
     items: [
       { value: 20, label: "20 Mhz" },
       { value: 40, label: "40 Mhz" },
-      { value: 80, label: "80 Mhz" },
     ],
     selectedValue: settings?.["2.4"]?.width ?? 20,
     label: t("settings:width"),
@@ -82,6 +82,7 @@ function Wifi24({ toggleLoader, settings }: Props) {
     enqueueSnackbar(res);
     essid.onChange();
     password.onChange();
+    await getInfo();
     // toggleLoader();
   }
 

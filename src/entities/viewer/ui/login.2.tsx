@@ -57,7 +57,7 @@ export function AuthByLogin({}: Props) {
       login: login.value,
       password: password.value,
     };
-    const res = await viewerModel.effects.viewerLogInFx(args);
+    await viewerModel.effects.viewerLogInFx(args);
     await modelAuthCheck.effects.getStatusFx();
     const state: any = location.state;
     const link = (state && state.from) || "/";

@@ -29,7 +29,9 @@ export type Event = {
   deviceInfo: DeviceInfo;
   id: number;
   status: TypeEventStatus;
-  titleVars: string[];
+  titleVars: {
+    [key: string]: string;
+  };
   type: Templates;
 };
 

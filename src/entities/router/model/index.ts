@@ -38,7 +38,10 @@ const useRouter = (range: RouterRange | undefined): Router | undefined => {
 toggleRouter.watch(async (payload) => {
   modelLoader.actions.toggleLoader();
   await toggleWifiFx({ range: payload.range, started: !payload.enabled });
-  await getRouterInfoFx();
+  const timeout = setTimeout(async () => {
+    await getRouterInfoFx();
+    clearTimeout(timeout);
+  }, 10000);
   modelLoader.actions.toggleLoader();
 });
 

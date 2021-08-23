@@ -19,7 +19,7 @@ export default memo(function Settings({ route }: Props) {
   const { t } = useTranslation();
   const [settings, setSettings] = React.useState<any | null>(null);
   const [lanwan, setLanwan] = React.useState<any | null>(null);
-  React.useEffect(() => {
+  function getInfo() {
     api.setting.getWifiInfo().then((res: any) => {
       const { data } = res;
       if (data) setSettings(data);
@@ -28,6 +28,9 @@ export default memo(function Settings({ route }: Props) {
       const { data } = res;
       if (data) setLanwan(data);
     });
+  }
+  React.useEffect(() => {
+    getInfo();
   }, []);
 
   const classes = useStyles();
@@ -36,10 +39,10 @@ export default memo(function Settings({ route }: Props) {
       <ScrollableContentiner>
         <div className={classes.template}>
           <div className={classes.row}>
-            <Wifi24 settings={settings} />
-            <Wifi5 settings={settings} />
-            <Local lan={lanwan?.lan ?? null} />
-            <Internet wan={lanwan?.wan ?? null} />
+            <Wifi24 getInfo={getInfo} settings={settings} />
+            <Wifi5 getInfo={getInfo} settings={settings} />
+            <Local getInfo={getInfo} lan={lanwan?.lan ?? null} />
+            <Internet getInfo={getInfo} wan={lanwan?.wan ?? null} />
           </div>
           <NewDesignRouter className={classes.router} />
         </div>

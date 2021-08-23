@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 const Section = (props: any) => {
   const classes = useStyles(props);
@@ -9,10 +9,11 @@ const Section = (props: any) => {
 
 const useStyles = makeStyles((theme) => ({
   section: ({ styles }: any) => ({
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
+
     marginBottom: theme.spacing(2),
-    '&:last-child': {
+    "&:last-child": {
       marginBottom: 0,
     },
     ...styles,

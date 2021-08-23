@@ -9,15 +9,18 @@ import { Typography } from "shared/ui/components";
 interface Props {
   type: number;
   variant: EventVarinat;
+  titleVars: {
+    [key: string]: string;
+  };
 }
 
-export function EventTitle({ variant, type }: Props) {
+export function EventTitle({ variant, type, titleVars }: Props) {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <Typography className={classes.title} variant="h5">
-      {t(`${variant}:list.${type}.title`)}
+      {t(`${variant}:list.${type}.title`, { ...titleVars })}
     </Typography>
   );
 }
