@@ -42,7 +42,7 @@ export function EventRow({ data, variant, className }: Props) {
             <EventCreateTime createTst={data.createTst} />
           </div>
           <div className={classes.info_row}>
-            <EventDeviceType entityType={data.deviceInfo.entityType} />
+            <EventDeviceType entityType={data?.deviceInfo?.entityType} />
             <EventDeviceLink
               icon={<EventDeviceIcon type={data.deviceInfo.type} />}
               name={

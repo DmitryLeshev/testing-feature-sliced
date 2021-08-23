@@ -38,12 +38,10 @@ export default memo(function Settings({ route }: Props) {
           <div className={classes.row}>
             <Wifi24 settings={settings} />
             <Wifi5 settings={settings} />
-          </div>
-          <NewDesignRouter className={classes.router} />
-          <div className={classes.row}>
             <Local lan={lanwan?.lan ?? null} />
             <Internet wan={lanwan?.wan ?? null} />
           </div>
+          <NewDesignRouter className={classes.router} />
         </div>
       </ScrollableContentiner>
       {/* {renderRoutes(route.routes)} */}
@@ -64,7 +62,12 @@ const useStyles = makeStyles((theme: ITheme) =>
       alignItems: "center",
     },
     col: { width: "50%", display: "grid", gap: theme.spacing(3) },
-    router: { margin: theme.spacing(6, 0) },
+    router: {
+      margin: theme.spacing(6, 0),
+      position: "absolute",
+      zIndex: -1,
+      bottom: 0,
+    },
     row: {
       display: "flex",
       width: "100%",

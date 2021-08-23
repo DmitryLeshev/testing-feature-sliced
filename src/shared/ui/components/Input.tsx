@@ -7,6 +7,7 @@ import {
   InputAdornment,
   makeStyles,
   createStyles,
+  Typography,
 } from "@material-ui/core";
 import clsx from "clsx";
 import { ITheme } from "shared/ui/theme/theme";
@@ -72,7 +73,9 @@ export default function Input(props: Props): ReactElement {
         disabled={props.disabled}
         name={props.name}
         onBlur={onBlur}
-        classes={{ root: clsx({ [classes.root]: true }) }}
+        classes={{
+          root: clsx({ [classes.root]: true }),
+        }}
         onKeyPress={(e) =>
           e.code === onPressCallback?.code && onPressCallback.cb()
         }
@@ -98,5 +101,6 @@ const useStyles = makeStyles((theme: ITheme) =>
       return exports;
     },
     root: { borderRadius: 40 },
+    label: { marginLeft: theme.spacing(2) },
   })
 );

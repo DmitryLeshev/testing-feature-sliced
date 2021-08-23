@@ -51,6 +51,7 @@ export function PortsCard({ data }: PortsCardProps): ReactElement {
       header={header}
       bodyProps={{ className: classes.ports }}
       body={data?.localNetwork?.ports.map((port, idx) => {
+        if (idx === 0) return null;
         return <Port key={idx} {...port} />;
       })}
     />

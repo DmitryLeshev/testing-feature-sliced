@@ -28,5 +28,3 @@ export const devicesSelectors = {
   useSelecetedDevices,
   useDevices,
 };
-
-getDevicesFx();

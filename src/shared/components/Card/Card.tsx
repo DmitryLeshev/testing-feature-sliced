@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme: ITheme) =>
     footer: {
       display: "flex",
       padding: theme.spacing(2),
-      background: theme.palette.background.paper,
       borderRadius: theme.spacing(2),
     },
   })

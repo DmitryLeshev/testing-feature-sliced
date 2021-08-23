@@ -32,7 +32,7 @@ const $incidents = createStore(incidentsInitialState)
   .on(resetIncidents, () => incidentsInitialState)
   .on(getNextIncidentsFx.doneData, (state, payload) => {
     console.log({ state, payload });
-    if (!state.length) return state;
+    if (!state.length) return state; // !!!
     return [...state, ...(payload.data ?? [])];
   });
 

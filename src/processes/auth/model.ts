@@ -21,7 +21,7 @@ export type Status = "cubic-is-not-auth" | "cubic-auth" | null;
 export const statusInitialState: Status = null;
 const $status = createStore<Status>(statusInitialState).on(
   getStatusFx.doneData,
-  (_, payload) => payload?.msg
+  (_, payload) => payload?.data?.message
 );
 
 export const $statusLoading = getStatusFx.pending;

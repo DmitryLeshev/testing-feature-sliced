@@ -2,6 +2,7 @@ import { store } from "shared/store";
 
 import { DEFAULT_OPTIONS, URL, Response } from "./config";
 import { modelNotifier } from "shared/lib/notifier";
+import i18n from "shared/lib/i18n";
 
 const controller = new AbortController();
 const signal = controller.signal;
@@ -32,7 +33,10 @@ async function request({
     if (data.msg) {
       store.dispatch(
         modelNotifier.actions.enqueueSnackbar({
-          message: typeof data.msg === "string" ? data.msg : "default-message",
+          message:
+            typeof data.msg === "string"
+              ? i18n.t(`snackbar:${data.msg}`)
+              : i18n.t("snackbar:default-message"),
           options: {
             key: new Date().getTime() + Math.random(),
             variant: data.status ? "success" : "error",

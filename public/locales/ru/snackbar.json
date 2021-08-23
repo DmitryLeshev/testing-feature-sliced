@@ -1,5 +1,6 @@
 {
   "add-host-successful": "Host успешно добавлен в белый список",
+  "graphic-data": "Данные графика",
   "connection-established": "Соединение установлено",
   "connection-refused": "Не удаётся подключиться",
   "default-error": "default-error",
@@ -18,5 +19,6 @@
   "connection-error": "Ошибка в соединении",
   "anketa-success": "Анкета отправлена",
   "anketa-error": "Не корректная анкета",
-  "state-changed": "Состояние изменилось (Очень информативно)"
+  "state-changed": "Состояние изменилось (Очень информативно)",
+  "success": "Успех"
 }

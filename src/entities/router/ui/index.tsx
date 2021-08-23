@@ -17,9 +17,9 @@ type RouterIconProps = Pick<Router, "enabled">;
 function RouterIcon({ enabled }: RouterIconProps) {
   const classes = useStyles();
   return enabled ? (
-    <NewDesignWifiOff className={classes.icon} />
-  ) : (
     <NewDesignWifiOn className={classes.icon} />
+  ) : (
+    <NewDesignWifiOff className={classes.icon} />
   );
 }
 
