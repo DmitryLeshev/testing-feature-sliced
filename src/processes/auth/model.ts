@@ -16,7 +16,7 @@ const getStatusFx = createEffect(() => {
 export const statusSchema = new schema.Entity("status");
 export const normalizeStatus = (data: any) => normalize(data, statusSchema);
 
-export type Status = "cubic-is-not-auth" | "cubic-auth" | null;
+export type Status = "cubic-is-not-auth" | "cubic-auth" | "wizard" | null;
 
 export const statusInitialState: Status = null;
 const $status = createStore<Status>(statusInitialState).on(

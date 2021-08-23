@@ -12,6 +12,9 @@ export const minValue = (min: number) => (value: string) => {
     : false;
 };
 
+export const valueMatch = (value1: string, msg: string) => (value2: string) => {
+  return value1 === value2 ? false : msg;
+};
 // export const notMore = (x) => (value) => {
 //   return value && value.length < x ? value : value.slice(0, x);
 // };

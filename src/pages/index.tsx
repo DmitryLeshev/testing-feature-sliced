@@ -24,6 +24,7 @@ type Props = RouteProps & {
 const PrivateRoute = ({ component: Component, ...rest }: Props) => {
   const status = modelAuthCheck.selectors.useStatus();
   const isAuthorized = status === "cubic-auth";
+  const isWizard = status === "wizard";
   const url = status === "cubic-is-not-auth" ? "/auth" : "/activation";
   const link = usePrepareLink({ to: url, isRelativePath: true });
 
@@ -34,10 +35,13 @@ const PrivateRoute = ({ component: Component, ...rest }: Props) => {
       {...rest}
       render={({ location }) => {
         if (!isAuthorized) {
-          if (
-            location.pathname === "/auth" ||
-            location.pathname === "/activation"
-          ) {
+          if (isWizard) {
+            if (location.pathname === "/activation") {
+              return <Component />;
+            } else
+              return <Redirect to={{ ...link, state: { from: location } }} />;
+          }
+          if (location.pathname === "/auth") {
             return <Component />;
           } else
             return <Redirect to={{ ...link, state: { from: location } }} />;
@@ -58,6 +62,8 @@ const PrivateRoute = ({ component: Component, ...rest }: Props) => {
 
 export const Routing = () => {
   const isServer = APP_MODE !== "CUBIC";
+  const status = modelAuthCheck.selectors.useStatus();
+  const isAuthorized = status === "cubic-auth";
 
   return (
     <>
@@ -73,7 +79,7 @@ export const Routing = () => {
         <PrivateRoute exact path="/auth" component={AuthPage} />
         <Redirect to="/home" />
       </Switch>
-      <GetParameterPopups />
+      {isAuthorized && <GetParameterPopups />}
     </>
   );
 };
