@@ -68,7 +68,7 @@ function EventDefaultDescription({
 
 export const READY_TEMPLATES: any = {
   task: [1, 13, 14],
-  incident: [4, 6],
+  incident: [],
 };
 
 type EventDescriptionProps = {

@@ -33,6 +33,8 @@ function View({ className }: Props) {
   const device = modelDevices.selectors.useDevice();
   const id = useGetParameter("id");
 
+  console.log({ device });
+
   return (
     <div className={classes.tab}>
       <ScrollableContentiner>

@@ -75,10 +75,7 @@ function Local({ toggleLoader, lan }: Props) {
       ip: ip.value,
       mask: mask.value,
     };
-    toggleLoader();
-    const res = await api.setting.setLanSettings(dto);
-    enqueueSnackbar(res);
-    toggleLoader();
+    await api.setting.setLanSettings(dto);
   }
 
   async function getDhcp() {

@@ -8,7 +8,7 @@ import clsx from "clsx";
 //   "description": "Пароль '{{password}}' обнаружен в списке стандартных или часто используемых."
 // },
 
-type Props = PropsWithChildren<{}>;
+type Props = PropsWithChildren<any>;
 
 export default (props: Props) => {
   const classes = useStyles();
@@ -21,7 +21,7 @@ export default (props: Props) => {
           <p className={clsx(classes.text, classes.login)}>Логины</p>
           <p className={clsx(classes.text, classes.password)}>Пароли</p>
         </li>
-        {/* {data?.body?.map((item: any, idx: number) => (
+        {props?.body?.params.map((item: any, idx: number) => (
           <li
             key={idx}
             className={clsx(classes.item, { [classes.fixed]: item.fixed })}
@@ -31,7 +31,7 @@ export default (props: Props) => {
               {item.password}
             </p>
           </li>
-        ))} */}
+        ))}
       </ul>
       {props.children}
     </>

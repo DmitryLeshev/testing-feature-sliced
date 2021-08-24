@@ -111,10 +111,7 @@ function Internet({ toggleLoader, wan }: Props) {
         mask: mask.value,
       };
     }
-    toggleLoader();
-    const res = await api.setting.setWanSettings(dto);
-    enqueueSnackbar(res);
-    toggleLoader();
+    await api.setting.setWanSettings(dto);
   }
 
   const classes = useStyles();
