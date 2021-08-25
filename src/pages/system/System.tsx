@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { createStyles, makeStyles } from "@material-ui/core";
 
-import { Page } from "shared/components";
+import { Card, Page } from "shared/components";
 import { ITheme } from "shared/ui/theme/theme";
 
 import { Reboot, Reset, Update, LoginPass, Connection } from "./components";
@@ -21,12 +21,14 @@ export default memo(function System({ route }: Props) {
     <Page title={t("system:page")}>
       <ScrollableContentiner>
         <div className={classes.template}>
-          <Update />
           <Reboot />
           <Reset />
           <LoginPass />
+          <div className={classes.wrapper}>
+            <Update />
+            <Agent />
+          </div>
           <Connection />
-          {/* <Agent /> */}
         </div>
       </ScrollableContentiner>
       {/* {renderRoutes(route.routes)} */}
@@ -43,10 +45,16 @@ const useStyles = makeStyles((theme: ITheme) =>
         "reboot reset connect update"
         "loginpass loginpass loginpass update"
       `,
-      // "agent"
       gap: theme.spacing(3),
       width: 1224,
       margin: `${theme.spacing(6)}px auto`,
+    },
+    wrapper: {
+      display: "flex",
+      flexDirection: "column",
+      gridArea: "update",
+      maxWidth: 400,
+      gap: theme.spacing(2),
     },
   })
 );

@@ -10,11 +10,9 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 
 const App = () => {
   return (
-    <>
-      <Layout>
-        <Routing />
-      </Layout>
-    </>
+    <Layout>
+      <Routing />
+    </Layout>
   );
 };
 

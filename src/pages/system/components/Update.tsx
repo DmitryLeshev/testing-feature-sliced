@@ -200,8 +200,8 @@ function Update({ toggleLoader }: Props) {
 
 const useStyles = makeStyles((theme: ITheme) =>
   createStyles({
-    body: { flexGrow: 1 },
-    card: { gridArea: "update", maxWidth: 400 },
+    body: {},
+    card: {},
     btn: { marginLeft: "auto" },
     formControl: {},
     mr_r2: { marginRight: theme.spacing(2) },

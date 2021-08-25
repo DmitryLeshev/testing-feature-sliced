@@ -28,7 +28,10 @@ async function request({
       signal: signal,
       body: JSON.stringify({ path, args, token: "DEBUG" }),
     };
-    const response = await fetch(URL, options);
+    const response = await fetch(
+      URL + `/${path.split("/").join("-")}`,
+      options
+    );
     const data: Response<any> = await response.json();
     if (data.msg) {
       store.dispatch(

@@ -5,6 +5,7 @@ import { Card } from "shared/components";
 import { Button, Typography } from "shared/ui/components";
 import { createStyles, makeStyles } from "@material-ui/core";
 import { ITheme } from "shared/ui/theme/theme";
+import { downloadAgent } from "shared/utils";
 
 interface Props {}
 
@@ -16,7 +17,7 @@ export const Agent = (props: Props) => {
     <Typography variant="h5">{t(`devices:info.agent.title`)}</Typography>
   );
   const footer = (
-    <Button className={classes.btn_right} onClick={() => console.log("click")}>
+    <Button className={classes.btn_right} onClick={downloadAgent}>
       {t(`devices:info.agent.download-agent`)}
     </Button>
   );

@@ -277,10 +277,11 @@ export const CardEquipment = ({ data }: PropsCardEquipment) => {
 
   const enumerationItems = () => {
     const cpu =
-      processorsInfo?.length > 0 &&
-      processorsInfo.map((el: any) => {
-        return { key: t("devices:info.cpu"), value: el?.Name };
-      });
+      processorsInfo?.length > 0
+        ? processorsInfo.map((el: any) => {
+            return { key: t("devices:info.cpu"), value: el?.Name };
+          })
+        : [];
     const ozu = {
       key: t("devices:info.ozu"),
       value: bytesToSize(totalRAM * 1000),
@@ -293,23 +294,25 @@ export const CardEquipment = ({ data }: PropsCardEquipment) => {
         ])} ` + ramInfo.map((el: any) => bytesToSize(el.Capacity)).join(" + "),
     };
     const video =
-      videoInfo?.length > 0 &&
-      videoInfo.map((el: any) => {
-        return {
-          key: t("devices:info.videoSystem"),
-          value: el?.Name,
-          valueSeconday: bytesToSize(el?.AdapterRAM),
-        };
-      });
+      videoInfo?.length > 0
+        ? videoInfo.map((el: any) => {
+            return {
+              key: t("devices:info.videoSystem"),
+              value: el?.Name,
+              valueSeconday: bytesToSize(el?.AdapterRAM),
+            };
+          })
+        : [];
     const storage =
-      physicalDrives?.length > 0 &&
-      physicalDrives.map((el: any) => {
-        return {
-          key: t("devices:info.storageDevice"),
-          value: el?.Model,
-          valueSeconday: bytesToSize(el?.Size),
-        };
-      });
+      physicalDrives?.length > 0
+        ? physicalDrives.map((el: any) => {
+            return {
+              key: t("devices:info.storageDevice"),
+              value: el?.Model,
+              valueSeconday: bytesToSize(el?.Size),
+            };
+          })
+        : [];
     return [...cpu, ozu, ...video, ...storage];
   };
 

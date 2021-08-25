@@ -26,7 +26,7 @@ async function request({
       credentials: "include",
       body: JSON.stringify({ path, args, token }),
     };
-    const response = await fetch(URL + prefix, options);
+    const response = await fetch(URL + `/${path}`, options);
     const data = await response.json();
     if (data.error) console.log("[request] data error", data.error);
     return data;
